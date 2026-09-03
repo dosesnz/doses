@@ -3,274 +3,451 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Wegovy, Mounjaro and Saxenda prices in NZ, updated daily — doses.nz</title>
-<meta name="description" content="Compare what NZ pharmacies charge for Wegovy, Mounjaro and Saxenda pens at every strength. Prices are collected automatically every day from public retailer pages.">
+<title>Wegovy, Mounjaro and Saxenda prices in NZ — doses.nz</title>
+<meta name="description" content="What NZ pharmacies charge for Wegovy, Mounjaro and Saxenda at every strength, and where to buy them.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
-  :root{
-    --paper:#FBFBF8; --ink:#17201B; --mute:#5E6863; --rule:#D9DED9;
-    --green:#0A6A4E; --mint:#DDF2E6; --amber:#FFF2CC; --red:#B4322A;
-    --max:1000px;
-  }
-  *{box-sizing:border-box}
-  html{font-size:17px}
-  body{margin:0;background:var(--paper);color:var(--ink);font-family:"IBM Plex Sans",system-ui,sans-serif;line-height:1.5;font-feature-settings:"tnum" 1}
-  a{color:var(--green)}
-  header,main,footer{max-width:var(--max);margin:0 auto;padding:0 20px}
-  header{padding-top:28px;display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap}
-  .brand{font-weight:600;font-size:1.15rem;letter-spacing:-.01em;text-decoration:none;color:var(--ink)}
-  .brand span{color:var(--green)}
-  .updated{color:var(--mute);font-size:.9rem}
-  h1{font-size:clamp(1.6rem,4vw,2.4rem);line-height:1.15;font-weight:600;letter-spacing:-.02em;margin:40px 0 8px;max-width:22ch}
-  .lede{color:var(--mute);max-width:60ch;margin:0 0 32px}
-  h2{font-size:1.25rem;font-weight:600;margin:48px 0 4px;letter-spacing:-.01em}
-  .sub{color:var(--mute);margin:0 0 14px;font-size:.95rem;max-width:70ch}
-  /* tables */
-  .tablewrap{overflow-x:auto;border:1px solid var(--rule);border-radius:6px;background:#fff}
-  table{border-collapse:collapse;width:100%;min-width:560px}
-  th,td{padding:11px 14px;text-align:right;border-bottom:1px solid var(--rule);white-space:nowrap}
-  th{font-weight:500;color:var(--mute);font-size:.9rem;background:#F3F5F3}
-  th:first-child,td:first-child{text-align:left;font-weight:500;position:sticky;left:0;background:inherit}
-  td:first-child{background:#fff}
-  tr:last-child td{border-bottom:0}
-  td.best{background:var(--mint);font-weight:600}
-  td.na{color:var(--mute)}
-  td .oos{display:block;font-size:.75rem;font-weight:400;color:var(--red)}
-  td a{text-decoration:none;color:inherit;border-bottom:1px dotted rgba(0,0,0,.35)}
-  td.best a{border-bottom-color:var(--green)}
-  .legend{font-size:.85rem;color:var(--mute);margin:8px 0 0}
-  .legend i{display:inline-block;width:12px;height:12px;background:var(--mint);vertical-align:-1px;margin-right:6px;border:1px solid var(--rule)}
-  /* calculator */
-  .calc{border:1px solid var(--rule);border-radius:6px;background:#fff;padding:20px;display:grid;grid-template-columns:1fr 1fr;gap:20px 32px}
-  @media(max-width:700px){.calc{grid-template-columns:1fr}}
-  .calc label{display:block;font-size:.9rem;color:var(--mute);margin:12px 0 4px}
-  .calc label:first-child{margin-top:0}
-  .calc select,.calc input{width:100%;font:inherit;padding:8px 10px;border:1px solid var(--rule);border-radius:4px;background:#fff;color:var(--ink)}
-  .calc input[type=number]{max-width:140px}
-  .result{border-left:3px solid var(--green);padding-left:16px;align-self:start}
-  .result .big{font-size:2.2rem;font-weight:600;letter-spacing:-.02em;line-height:1.1}
-  .result .big small{font-size:1rem;font-weight:400;color:var(--mute);margin-left:6px}
-  .result dl{margin:14px 0 0;display:grid;grid-template-columns:1fr auto;gap:4px 16px;font-size:.92rem}
-  .result dt{color:var(--mute)} .result dd{margin:0;text-align:right}
-  .result .starter{margin-top:14px;padding-top:12px;border-top:1px solid var(--rule);font-size:.92rem}
-  /* chart */
-  .chartbox{border:1px solid var(--rule);border-radius:6px;background:#fff;padding:16px}
-  .chartctl{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px}
-  .chartctl select{font:inherit;padding:6px 8px;border:1px solid var(--rule);border-radius:4px;background:#fff}
-  canvas{max-height:320px}
-  .empty{color:var(--mute);padding:24px;text-align:center}
-  /* footer */
-  footer{margin:64px auto 40px;color:var(--mute);font-size:.88rem;max-width:var(--max)}
-  footer p{max-width:75ch}
-  .err{background:var(--amber);padding:12px 14px;border-radius:6px;margin:16px 0}
-  :focus-visible{outline:2px solid var(--green);outline-offset:2px}
-  @media(prefers-reduced-motion:no-preference){td.best{transition:background .2s}}
+/* ---------- doses.nz design tokens ---------- */
+:root{
+--paper:#FAFAF8;--white:#fff;--stone:#F3F4F0;--line:#E5E7E2;
+--ink:#151A18;--slate:#42504B;--sage:#7C8A84;
+--teal:#1F5E56;--teal-dark:#17453F;--teal-soft:#EAF2F0;--teal-tint:#F4F8F7;
+--clay:#A8443A;--sand:#FBF3E2;
+--radius-card:14px;--radius-control:10px;
+--shadow-card:0 1px 2px rgba(21,26,24,.04),0 10px 30px -18px rgba(21,26,24,.16);
+--max:1100px;--gutter:36px;
+}
+*{box-sizing:border-box}
+html{font-size:16.5px;-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--slate);font-family:"DM Sans",system-ui,-apple-system,sans-serif;line-height:1.6;font-feature-settings:"tnum" 1}
+h1,h2,h3{color:var(--ink);font-weight:400;margin:0}
+p{margin:0;text-wrap:pretty}
+a{color:var(--teal);text-underline-offset:2px}
+a:hover{color:var(--teal-dark)}
+:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+.shell{max-width:var(--max);margin:0 auto;padding:0 var(--gutter)}
+
+/* ---------- nav ---------- */
+.nav{position:sticky;top:0;z-index:5;background:rgba(250,250,248,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav .shell{height:66px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.mark{font-weight:500;font-size:1.2rem;letter-spacing:-.012em;text-decoration:none;color:var(--ink)}
+.mark span{color:var(--teal)}
+.nav-right{display:flex;align-items:center;gap:32px}
+.nav-links{display:flex;gap:32px;font-size:.88rem}
+.nav-links a{color:var(--slate);text-decoration:none;transition:color 140ms cubic-bezier(.2,.6,.2,1)}
+.btn{display:inline-block;font-size:.88rem;font-weight:500;padding:12px 22px;border-radius:999px;text-decoration:none;border:1px solid transparent;cursor:pointer;font-family:inherit;transition:background 140ms cubic-bezier(.2,.6,.2,1),color 140ms cubic-bezier(.2,.6,.2,1)}
+.btn-primary{background:var(--teal);color:#fff}
+.btn-primary:hover{background:var(--teal-dark);color:#fff}
+.btn-secondary{color:var(--teal);border-color:var(--teal);background:transparent}
+.btn-secondary:hover{background:var(--teal-tint)}
+
+/* ---------- type ---------- */
+.kicker{font-size:.72rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+.kicker-muted{color:var(--sage)}
+.hero{padding:96px var(--gutter) 72px;text-align:center;display:grid;justify-items:center;gap:20px}
+.hero h1{font-size:clamp(2.35rem,4.4vw,3.15rem);line-height:1.08;letter-spacing:-.028em;max-width:26ch}
+.hero .lede{font-size:1.09rem;max-width:56ch}
+.hero-actions{display:flex;gap:12px;margin-top:8px;flex-wrap:wrap;justify-content:center}
+.section{padding:88px var(--gutter)}
+.section-head{text-align:center;max-width:58ch;margin:0 auto 40px;display:grid;justify-items:center;gap:12px}
+.section-head h2{font-size:2.06rem;line-height:1.16;letter-spacing:-.024em}
+
+/* ---------- bands ---------- */
+.band{background:var(--white);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.band-stone{background:var(--stone);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;padding:44px var(--gutter);text-align:center}
+.stat-value{font-size:2.42rem;color:var(--ink);letter-spacing:-.024em;line-height:1}
+.stat-label{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--sage);margin-top:12px}
+.stat-sub{font-size:.94rem;color:var(--sage);margin-top:4px}
+
+/* ---------- cards ---------- */
+.card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius-card);box-shadow:var(--shadow-card);padding:32px}
+.card-flush{padding:0;overflow:hidden}
+.card-accent{background:var(--teal);color:#fff;border-color:var(--teal)}
+
+/* ---------- tables ---------- */
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:620px}
+th{font-size:.7rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--sage);background:var(--stone);text-align:right;padding:18px 20px;border-bottom:1px solid var(--line);white-space:nowrap}
+th:first-child{text-align:left}
+td{padding:18px 20px;text-align:right;border-bottom:1px solid var(--line);font-size:1.06rem;color:var(--ink);white-space:nowrap}
+td:first-child{text-align:left;font-size:1rem;color:var(--slate);font-weight:500}
+tr:last-child td{border-bottom:0}
+td.best{background:var(--teal-soft);color:var(--teal);font-weight:500}
+td.na{color:var(--sage)}
+td a{color:inherit;text-decoration:none}
+td a:hover{text-decoration:underline}
+.oos{display:block;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--clay);margin-top:4px}
+.legend{font-size:.94rem;color:var(--sage);margin-top:16px;text-align:center}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;background:var(--teal-soft);border:1px solid var(--line);margin-right:7px}
+
+/* ---------- calculator ---------- */
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.field{margin-bottom:20px}
+.field:last-child{margin-bottom:0}
+.field label{display:block;font-size:.7rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--sage);margin-bottom:8px}
+.field .hint{font-size:.94rem;color:var(--sage);margin-top:8px}
+select,.money{width:100%;font:inherit;font-size:1rem;color:var(--ink);padding:13px 15px;border:1px solid var(--line);border-radius:var(--radius-control);background:var(--white)}
+select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--sage) 50%),linear-gradient(135deg,var(--sage) 50%,transparent 50%);background-position:calc(100% - 20px) 55%,calc(100% - 15px) 55%;background-size:5px 5px,5px 5px;background-repeat:no-repeat}
+.money{display:flex;align-items:center;gap:4px;padding:0 15px}
+.money span{color:var(--sage)}
+.money input{flex:1;font:inherit;font-size:1rem;color:var(--ink);border:0;background:transparent;padding:13px 0;outline:none;font-feature-settings:"tnum" 1;width:100%}
+.stack{display:grid;gap:8px}
+.total{font-size:3.4rem;line-height:1;letter-spacing:-.024em}
+.total small{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;opacity:.75;margin-left:12px}
+.card-accent dl{display:grid;grid-template-columns:1fr auto;gap:12px 20px;margin:32px 0 0;font-size:.94rem}
+.card-accent dt{opacity:.78}
+.card-accent dd{margin:0;text-align:right}
+.card-accent .foot{margin-top:24px;padding-top:16px;border-top:1px solid rgba(255,255,255,.28);font-size:.94rem;opacity:.92}
+.card-accent strong{font-weight:500}
+
+/* ---------- chart ---------- */
+.chart-controls{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+.chart-controls>div{width:190px}
+.chart-controls>div+div{width:150px}
+.chart-holder{height:320px}
+
+/* ---------- notice + footer ---------- */
+.notice{background:var(--sand);color:var(--ink);border-radius:var(--radius-control);padding:16px 20px;font-size:.94rem;max-width:74ch}
+.scope{display:grid;justify-items:center;gap:20px}
+footer{border-top:1px solid var(--line)}
+footer .shell{padding:56px var(--gutter) 72px}
+.fine{max-width:74ch;margin:0 auto;text-align:center;color:var(--sage);font-size:.82rem;display:grid;gap:12px}
+
+@media(max-width:820px){
+.calc{grid-template-columns:1fr}
+.stats{grid-template-columns:1fr;gap:32px}
+.nav-links{display:none}
+.section{padding:64px var(--gutter)}
+.hero{padding:64px var(--gutter) 48px}
+}
 </style>
 </head>
 <body>
-<header>
-  <a class="brand" href="/">doses<span>.nz</span></a>
-  <div class="updated" id="updated">Loading prices…</div>
-</header>
 
-<main>
-  <h1>What NZ pharmacies charge for GLP-1 pens, checked every morning.</h1>
-  <p class="lede">Wegovy, Mounjaro and Saxenda are not funded by Pharmac, so the price is whatever the pharmacy sets. This page reads the public price on each retailer's site once a day and puts them side by side. Pen prices only — a prescription and, for some pens, needles are extra. Use the calculator below for the full monthly figure.</p>
-
-  <div id="error"></div>
-  <div id="tables"></div>
-
-  <h2>What a month actually costs</h2>
-  <p class="sub">Pen price at the cheapest listed pharmacy, plus whatever you pay for the prescription and needles. Change the numbers to match your own prescriber.</p>
-  <div class="calc">
-    <div>
-      <label for="c-drug">Medicine</label>
-      <select id="c-drug"></select>
-      <label for="c-strength">Strength</label>
-      <select id="c-strength"></select>
-      <label for="c-rx">Prescription fee, per month (NZ$)</label>
-      <select id="c-rx-preset">
-        <option value="26.67">Online GP, $80 for 3 months (Well Revolution)</option>
-        <option value="60">Pharmacist consult, about $60 (varies by store)</option>
-        <option value="0">Already have a script — $0</option>
-        <option value="custom">Enter my own</option>
-      </select>
-      <input type="number" id="c-rx" value="26.67" min="0" step="0.01" style="margin-top:6px">
-      <label for="c-needles">Needles (NZ$ per month)</label>
-      <input type="number" id="c-needles" value="0" min="0" step="0.5">
-      <p class="sub" style="margin-top:8px">Wegovy pens include needles. Mounjaro KwikPens don't — a box of 100 is about $20–25, so roughly $1 a month at one needle a week.</p>
+<nav class="nav">
+  <div class="shell">
+    <a class="mark" href="#top">doses<span>.nz</span></a>
+    <div class="nav-right">
+      <div class="nav-links">
+        <a href="#prices">Prices</a>
+        <a href="#cost">Monthly cost</a>
+        <a href="#history">History</a>
+      </div>
+      <a class="btn btn-primary" href="#prices">Today's prices</a>
     </div>
-    <div class="result" id="c-result"></div>
   </div>
+</nav>
 
-  <h2>How prices have moved</h2>
-  <p class="sub">One line per pharmacy. The history starts from the day this tracker went live.</p>
-  <div class="chartbox">
-    <div class="chartctl">
-      <select id="h-drug"></select>
-      <select id="h-strength"></select>
+<section class="hero" id="top">
+  <div class="kicker" id="stamp">&nbsp;</div>
+  <h1>What NZ pharmacies charge for GLP&#8209;1 pens.</h1>
+  <div class="hero-actions"><a class="btn btn-primary" href="#prices">See today's prices</a></div>
+</section>
+
+<div class="band">
+  <div class="shell stats" id="stats"></div>
+</div>
+
+<div id="prices"></div>
+
+<div class="band-stone" id="cost">
+  <section class="section shell">
+    <div class="section-head">
+      <div class="kicker">Calculator</div>
+      <h2>What a month costs</h2>
     </div>
-    <canvas id="chart"></canvas>
-    <div class="empty" id="chart-empty" hidden>Not enough days of data yet to draw a line — check back in a week.</div>
-  </div>
+    <div class="calc">
+      <div class="card">
+        <div class="field">
+          <label for="c-drug">Medicine</label>
+          <select id="c-drug"></select>
+        </div>
+        <div class="field">
+          <label for="c-strength">Strength</label>
+          <select id="c-strength"></select>
+        </div>
+        <div class="field">
+          <label for="c-rx">Prescription fee, per month</label>
+          <div class="stack">
+            <select id="c-rx-preset">
+              <option value="26.67">Online GP — $80 for 3 months</option>
+              <option value="60">Pharmacist consult — about $60</option>
+              <option value="0">Already have a script — $0</option>
+              <option value="custom">Enter my own</option>
+            </select>
+            <div class="money"><span>$</span><input type="number" id="c-rx" value="26.67" min="0" step="0.01"></div>
+          </div>
+        </div>
+        <div class="field">
+          <label for="c-needles">Needles, per month</label>
+          <div class="money"><span>$</span><input type="number" id="c-needles" value="0" min="0" step="0.5"></div>
+          <p class="hint">Mounjaro KwikPens don't include needles — a box of 100 is about $20&ndash;25.</p>
+        </div>
+      </div>
+      <div class="card card-accent">
+        <div class="total" id="c-total">&nbsp;</div>
+        <dl id="c-lines"></dl>
+        <div class="foot" id="c-step"></div>
+      </div>
+    </div>
+  </section>
+</div>
 
-  <h2>Not on this page</h2>
-  <p class="sub">Unichem and Life Pharmacy stores, Zoom Pharmacy (for Wegovy and Mounjaro) and Pharmacy Direct quote prices on request rather than listing them, so they can't be tracked here. Ozempic is approved in NZ for type 2 diabetes only and isn't sold for weight management. Funded GLP-1s for diabetes (Trulicity, Victoza) are covered by Pharmac under Special Authority and cost the standard prescription co-payment.</p>
-</main>
+<section class="section shell" id="history">
+  <div class="section-head">
+    <div class="kicker">History</div>
+    <h2>How prices have moved</h2>
+  </div>
+  <div class="card">
+    <div class="chart-controls">
+      <div><select id="h-drug"></select></div>
+      <div><select id="h-strength"></select></div>
+    </div>
+    <div class="chart-holder"><canvas id="chart"></canvas></div>
+    <p class="legend" id="chart-empty" hidden>Not enough days recorded yet.</p>
+  </div>
+</section>
+
+<div class="band-stone">
+  <section class="section shell">
+    <div class="section-head">
+      <div class="kicker">Scope</div>
+      <h2>What isn't here</h2>
+    </div>
+    <div class="scope">
+      <div class="notice">Unichem and Life Pharmacy, Pharmacy Direct, and Zoom Pharmacy for Wegovy and Mounjaro quote on request. Ozempic is approved in NZ for type&nbsp;2 diabetes only. Funded GLP&#8209;1s for diabetes (Trulicity, Victoza) are covered by Pharmac under Special Authority at the standard co-payment.</div>
+      <a class="btn btn-secondary" href="#prices">Back to today's prices</a>
+    </div>
+  </section>
+</div>
 
 <footer>
-  <p>doses.nz is an independent price tracker. Prices are read automatically from each retailer's public website and may lag or differ from what you're charged in store — the retailer's site is the source of truth. Links to retailers may earn a small commission; it doesn't change the order or the numbers shown. Nothing here is medical advice: whether any of these medicines is right for you is a question for your doctor or pharmacist. Data sheets and consumer medicine information are on <a href="https://www.medsafe.govt.nz">Medsafe</a>.</p>
-  <p>Data is published as a <a href="data/prices.csv">CSV</a> you're welcome to reuse with attribution.</p>
+  <div class="shell">
+    <div class="fine">
+      <p>doses.nz is an independent price tracker. Prices come from each retailer's public website and may differ from what you're charged in store — the retailer's site is the source of truth. Links to retailers may earn a small commission; it doesn't change the order or the numbers shown.</p>
+      <p>Nothing here is medical advice. Data sheets and consumer medicine information are on <a href="https://www.medsafe.govt.nz">Medsafe</a>. Prices are published as a <a href="data/prices.csv">CSV</a> you're welcome to reuse with attribution.</p>
+    </div>
+  </div>
 </footer>
 
 <script>
-(async function(){
-  const $=s=>document.querySelector(s);
-  const fmt=n=>"$"+Number(n).toLocaleString("en-NZ",{minimumFractionDigits:2,maximumFractionDigits:2});
+(async function () {
+  const $ = s => document.querySelector(s);
+  const money = n => "$" + Number(n).toLocaleString("en-NZ", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-  // --- CSV ---
-  function parseCSV(text){
-    const rows=[];let row=[],f="",q=false;
-    for(let i=0;i<text.length;i++){
-      const c=text[i];
-      if(q){ if(c==='"'){ if(text[i+1]==='"'){f+='"';i++;} else q=false; } else f+=c; }
-      else if(c==='"') q=true;
-      else if(c===','){row.push(f);f="";}
-      else if(c==='\n'){row.push(f);rows.push(row);row=[];f="";}
-      else if(c!=='\r') f+=c;
+  // ---------- load ----------
+  function parseCSV(text) {
+    const rows = []; let row = [], f = "", q = false;
+    for (let i = 0; i < text.length; i++) {
+      const c = text[i];
+      if (q) { if (c === '"') { if (text[i+1] === '"') { f += '"'; i++; } else q = false; } else f += c; }
+      else if (c === '"') q = true;
+      else if (c === ',') { row.push(f); f = ""; }
+      else if (c === '\n') { row.push(f); rows.push(row); row = []; f = ""; }
+      else if (c !== '\r') f += c;
     }
-    if(f.length||row.length){row.push(f);rows.push(row);}
-    const head=rows.shift();
-    return rows.filter(r=>r.length===head.length).map(r=>Object.fromEntries(head.map((h,i)=>[h,r[i]])));
+    if (f.length || row.length) { row.push(f); rows.push(row); }
+    const head = rows.shift();
+    return rows.filter(r => r.length === head.length).map(r => Object.fromEntries(head.map((h, i) => [h, r[i]])));
   }
 
-  let rows;
-  try{
-    const res=await fetch("data/prices.csv",{cache:"no-store"});
-    if(!res.ok) throw new Error(res.status);
-    rows=parseCSV(await res.text());
-  }catch(e){
-    $("#error").innerHTML='<div class="err">Couldn\'t load data/prices.csv. If this is a fresh deploy, run the scraper once so the file exists.</div>';
-    $("#updated").textContent="No data yet";
+  let raw;
+  try {
+    const res = await fetch("data/prices.csv", { cache: "no-store" });
+    if (!res.ok) throw new Error(res.status);
+    raw = parseCSV(await res.text());
+  } catch (e) {
+    $("#stamp").textContent = "Prices unavailable";
+    $("#prices").innerHTML = '<section class="section shell"><div class="notice">Couldn\'t load the price data. If this is a fresh deploy, run the scraper once so data/prices.csv exists.</div></section>';
     return;
   }
 
-  // normalise
-  const clean=rows.filter(r=>r.price_nzd && !/^ERROR/.test(r.note||"")).map(r=>({
-    date:r.date.slice(0,10), ts:r.date,
-    retailer:r.retailer,
-    drug:r.drug.split("(")[0].trim(),
-    strength:(r.strength||"").replace(/\s+/g,""),
-    price:parseFloat(r.price_nzd),
-    available:r.available===""?null:r.available==="true",
-    url:r.source_url
-  }));
-  if(!clean.length){ $("#updated").textContent="No prices recorded yet"; return; }
+  const all = raw
+    .filter(r => r.price_nzd && !/^ERROR/.test(r.note || ""))
+    .map(r => ({
+      date: r.date.slice(0, 10), ts: r.date,
+      retailer: r.retailer,
+      drug: (r.drug || "").split("(")[0].trim(),
+      strength: (r.strength || "").trim(),
+      price: parseFloat(r.price_nzd),
+      oos: r.available === "false",
+      url: r.source_url
+    }));
 
-  // latest per retailer+drug+strength
-  const latest={};
-  for(const r of clean){
-    const k=[r.retailer,r.drug,r.strength].join("|");
-    if(!latest[k]||r.ts>latest[k].ts) latest[k]=r;
-  }
-  const L=Object.values(latest);
-  const lastTs=L.map(r=>r.ts).sort().pop();
-  $("#updated").textContent="Prices last checked "+new Date(lastTs).toLocaleString("en-NZ",{dateStyle:"medium",timeStyle:"short"});
+  if (!all.length) { $("#stamp").textContent = "No prices recorded yet"; return; }
 
-  const strengthNum=s=>parseFloat(s)||0;
-  const drugs=["Wegovy","Mounjaro","Saxenda"].filter(d=>L.some(r=>r.drug===d)).concat([...new Set(L.map(r=>r.drug))].filter(d=>!["Wegovy","Mounjaro","Saxenda"].includes(d)));
+  // latest row per retailer+drug+strength
+  const latestMap = {};
+  for (const r of all) {
+    const k = [r.retailer, r.drug, r.strength].join("|");
+    if (!latestMap[k] || r.ts > latestMap[k].ts) latestMap[k] = r;
+  }
+  const L = Object.values(latestMap);
 
-  // --- tables ---
-  const T=$("#tables");
-  for(const d of drugs){
-    const rs=L.filter(r=>r.drug===d);
-    const retailers=[...new Set(rs.map(r=>r.retailer))].sort();
-    const strengths=[...new Set(rs.map(r=>r.strength))].sort((a,b)=>strengthNum(a)-strengthNum(b)||a.localeCompare(b));
-    let h=`<h2>${d}</h2><p class="sub">${d==="Wegovy"?"Once-weekly semaglutide. One pen is four weekly doses.":d==="Mounjaro"?"Once-weekly tirzepatide KwikPen. One pen is four weekly doses. Needles sold separately.":d==="Saxenda"?"Daily liraglutide. Listed per pack — check the pack size.":""}</p>`;
-    h+='<div class="tablewrap"><table><thead><tr><th>Strength</th>'+retailers.map(r=>`<th>${r}</th>`).join("")+'</tr></thead><tbody>';
-    for(const s of strengths){
-      const cells=retailers.map(rt=>rs.find(r=>r.retailer===rt&&r.strength===s));
-      const min=Math.min(...cells.filter(c=>c&&c.available!==false).map(c=>c.price));
-      h+=`<tr><td>${s}</td>`+cells.map(c=>{
-        if(!c) return '<td class="na">—</td>';
-        const best=c.price===min&&c.available!==false;
-        return `<td class="${best?"best":""}"><a href="${c.url}" rel="nofollow noopener" target="_blank">${fmt(c.price)}</a>${c.available===false?'<span class="oos">out of stock</span>':""}</td>`;
-      }).join("")+"</tr>";
-    }
-    h+='</tbody></table></div><p class="legend"><i></i>cheapest in-stock price for that strength. Click a price to open the retailer.</p>';
-    T.insertAdjacentHTML("beforeend",h);
-  }
+  const newest = L.map(r => r.ts).sort().pop();
+  $("#stamp").textContent = "Updated " +
+    new Date(newest).toLocaleString("en-NZ", { hour: "numeric", minute: "2-digit", day: "numeric", month: "long" }).replace(",", "");
 
-  // --- calculator ---
-  const cd=$("#c-drug"),cs=$("#c-strength"),crx=$("#c-rx"),crxp=$("#c-rx-preset"),cn=$("#c-needles"),cr=$("#c-result");
-  const penDrugs=drugs.filter(d=>["Wegovy","Mounjaro"].includes(d));
-  cd.innerHTML=penDrugs.map(d=>`<option>${d}</option>`).join("");
-  function fillStrengths(){
-    const rs=L.filter(r=>r.drug===cd.value);
-    const ss=[...new Set(rs.map(r=>r.strength))].sort((a,b)=>strengthNum(a)-strengthNum(b));
-    cs.innerHTML=ss.map(s=>`<option>${s}</option>`).join("");
-    // default to first maintenance dose
-    const def=cd.value==="Wegovy"?"2.4mg":"5mg"; if(ss.includes(def)) cs.value=def;
-    if(cd.value==="Mounjaro"&&+cn.value===0) cn.value="1";
-    if(cd.value==="Wegovy") cn.value="0";
-  }
-  function cheapest(d,s){
-    const c=L.filter(r=>r.drug===d&&r.strength===s&&r.available!==false).sort((a,b)=>a.price-b.price)[0];
-    return c||L.filter(r=>r.drug===d&&r.strength===s).sort((a,b)=>a.price-b.price)[0];
-  }
-  function calc(){
-    const c=cheapest(cd.value,cs.value); if(!c){cr.innerHTML="";return;}
-    const rx=+crx.value||0,nd=+cn.value||0,total=c.price+rx+nd;
-    // starter: titration path
-    const path=cd.value==="Wegovy"?["0.25mg","0.5mg","1.0mg","1.7mg"]:["2.5mg","5mg","7.5mg","10mg"];
-    const steps=path.map(s=>cheapest(cd.value,s)).filter(Boolean);
-    let starter="";
-    if(steps.length===path.length){
-      const pens=steps.reduce((a,r)=>a+r.price,0);
-      starter=`<div class="starter">First four months on the standard step-up (${path.join(" → ")}): <strong>${fmt(pens+4*(rx+nd))}</strong>, of which pens are ${fmt(pens)}.</div>`;
-    }
-    cr.innerHTML=`<div class="big">${fmt(total)}<small>per month</small></div>
-      <dl><dt>${cd.value} ${cs.value}, cheapest at ${c.retailer}</dt><dd>${fmt(c.price)}</dd>
-      <dt>Prescription</dt><dd>${fmt(rx)}</dd><dt>Needles</dt><dd>${fmt(nd)}</dd></dl>${starter}`;
-  }
-  crxp.addEventListener("change",()=>{ if(crxp.value!=="custom"){crx.value=crxp.value;} calc(); });
-  cd.addEventListener("change",()=>{fillStrengths();calc();});
-  [cs,crx,cn].forEach(el=>el.addEventListener("input",calc));
-  if(penDrugs.length){fillStrengths();calc();}
-
-  // --- history chart ---
-  const hd=$("#h-drug"),hs=$("#h-strength"),cv=$("#chart"),empty=$("#chart-empty");
-  hd.innerHTML=drugs.map(d=>`<option>${d}</option>`).join("");
-  let chart;
-  function hFill(){
-    const ss=[...new Set(clean.filter(r=>r.drug===hd.value).map(r=>r.strength))].sort((a,b)=>strengthNum(a)-strengthNum(b));
-    hs.innerHTML=ss.map(s=>`<option>${s}</option>`).join("");
-    const def=hd.value==="Wegovy"?"2.4mg":"5mg"; if(ss.includes(def)) hs.value=def;
-  }
-  function draw(){
-    const rs=clean.filter(r=>r.drug===hd.value&&r.strength===hs.value);
-    const dates=[...new Set(rs.map(r=>r.date))].sort();
-    const retailers=[...new Set(rs.map(r=>r.retailer))].sort();
-    const palette=["#0A6A4E","#B4322A","#2F5FA6","#9A6B00","#6B3FA0"];
-    if(chart) chart.destroy();
-    if(dates.length<2){cv.hidden=true;empty.hidden=false;return;}
-    cv.hidden=false;empty.hidden=true;
-    const ds=retailers.map((rt,i)=>{
-      const m={}; rs.filter(r=>r.retailer===rt).forEach(r=>m[r.date]=r.price);
-      return {label:rt,data:dates.map(d=>m[d]??null),borderColor:palette[i%palette.length],backgroundColor:palette[i%palette.length],spanGaps:true,tension:0,pointRadius:3,borderWidth:2};
+  const RETAILERS = [...new Set(L.map(r => r.retailer))].sort();
+  const num = s => { const m = /(\d+(\.\d+)?)/.exec(s); return m ? parseFloat(m[1]) : 0; };
+  const ORDER = ["Wegovy", "Mounjaro", "Saxenda"];
+  const DRUGS = [...new Set(L.map(r => r.drug))]
+    .sort((a, b) => {
+      const ia = ORDER.indexOf(a), ib = ORDER.indexOf(b);
+      return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib) || a.localeCompare(b);
     });
-    chart=new Chart(cv,{type:"line",data:{labels:dates,datasets:ds},options:{
-      animation:matchMedia("(prefers-reduced-motion: reduce)").matches?false:undefined,
-      responsive:true,interaction:{mode:"index",intersect:false},
-      scales:{y:{ticks:{callback:v=>"$"+v},grid:{color:"#E6EAE6"}},x:{grid:{display:false}}},
-      plugins:{legend:{position:"bottom",labels:{boxWidth:12,font:{family:"IBM Plex Sans"}}},tooltip:{callbacks:{label:c=>c.dataset.label+": "+fmt(c.parsed.y)}}}
-    }});
+
+  const META = {
+    Wegovy:   { sub: "semaglutide", head: "Once-weekly, four doses a pen", note: "", needles: 0, maint: "2.4mg", titration: ["0.25mg","0.5mg","1.0mg","1.7mg"] },
+    Mounjaro: { sub: "tirzepatide", head: "KwikPen, four doses a pen",     note: "Needles are sold separately.", needles: 1, maint: "5mg", titration: ["2.5mg","5mg","7.5mg","10mg"] },
+    Saxenda:  { sub: "liraglutide", head: "Daily, sold by the pack",       note: "Check the pack size before comparing.", needles: 0 }
+  };
+
+  const strengthsFor = d => [...new Set(L.filter(r => r.drug === d).map(r => r.strength))]
+    .sort((a, b) => num(a) - num(b) || a.localeCompare(b));
+
+  // ---------- price tables ----------
+  const host = $("#prices");
+  DRUGS.forEach((d, idx) => {
+    const m = META[d] || { sub: "", head: d, note: "", needles: 0 };
+    const rs = L.filter(r => r.drug === d);
+    const cols = RETAILERS.filter(rt => rs.some(r => r.retailer === rt));
+    const strengths = strengthsFor(d);
+    const isPack = strengths.some(s => !/^[\d.]+mg$/.test(s));
+
+    let body = "";
+    for (const s of strengths) {
+      const cells = cols.map(rt => rs.find(r => r.retailer === rt && r.strength === s));
+      const live = cells.filter(c => c && !c.oos).map(c => c.price);
+      const min = live.length ? Math.min(...live) : null;
+      body += "<tr><td>" + s + "</td>" + cells.map(c => {
+        if (!c) return '<td class="na">&mdash;</td>';
+        const best = !c.oos && c.price === min;
+        return '<td class="' + (best ? "best" : "") + '"><a href="' + c.url + '" rel="nofollow noopener" target="_blank">' + money(c.price) + '</a>' +
+               (c.oos ? '<span class="oos">Out of stock</span>' : '') + '</td>';
+      }).join("") + "</tr>";
+    }
+
+    host.insertAdjacentHTML("beforeend",
+      '<section class="section shell"' + (idx ? ' style="padding-top:0"' : '') + '>' +
+        '<div class="section-head">' +
+          '<div class="kicker">' + d + (m.sub ? ' &middot; ' + m.sub : '') + '</div>' +
+          '<h2>' + m.head + '</h2>' +
+          (m.note ? '<p>' + m.note + '</p>' : '') +
+        '</div>' +
+        '<div class="card card-flush"><div class="tablewrap"><table>' +
+          '<thead><tr><th>' + (isPack ? "Pack" : "Strength") + '</th>' + cols.map(c => '<th>' + c + '</th>').join("") + '</tr></thead>' +
+          '<tbody>' + body + '</tbody>' +
+        '</table></div></div>' +
+      '</section>');
+  });
+
+  // ---------- stats band ----------
+  const cheapestNow = L.filter(r => !r.oos).sort((a, b) => a.price - b.price)[0];
+  $("#stats").innerHTML =
+    '<div><div class="stat-value">' + RETAILERS.length + '</div><div class="stat-label">Pharmacies tracked</div></div>' +
+    '<div><div class="stat-value">' + new Set(L.map(r => r.drug + r.strength)).size + '</div><div class="stat-label">Pens and packs</div></div>' +
+    '<div><div class="stat-value">' + money(cheapestNow.price) + '</div><div class="stat-label">Cheapest today</div>' +
+      '<div class="stat-sub">' + cheapestNow.drug + ' ' + cheapestNow.strength + ', ' + cheapestNow.retailer + '</div></div>';
+
+  // ---------- calculator ----------
+  const cd = $("#c-drug"), cs = $("#c-strength"), crx = $("#c-rx"), crxp = $("#c-rx-preset"), cn = $("#c-needles");
+  const penDrugs = DRUGS.filter(d => META[d] && META[d].titration);
+  cd.innerHTML = penDrugs.map(d => '<option>' + d + '</option>').join("");
+
+  const cheapest = (d, s) => {
+    const c = L.filter(r => r.drug === d && r.strength === s && !r.oos).sort((a, b) => a.price - b.price)[0];
+    return c || L.filter(r => r.drug === d && r.strength === s).sort((a, b) => a.price - b.price)[0];
+  };
+
+  function fillStrengths() {
+    const ss = strengthsFor(cd.value);
+    cs.innerHTML = ss.map(s => '<option>' + s + '</option>').join("");
+    const m = META[cd.value];
+    if (m && ss.includes(m.maint)) cs.value = m.maint;
+    cn.value = String(m ? m.needles : 0);
   }
-  hd.addEventListener("change",()=>{hFill();draw();});
-  hs.addEventListener("change",draw);
-  hFill();draw();
+
+  function calc() {
+    const d = cd.value, m = META[d] || {};
+    const best = cheapest(d, cs.value);
+    if (!best) return;
+    const rx = +crx.value || 0, nd = +cn.value || 0;
+    $("#c-total").innerHTML = money(best.price + rx + nd) + "<small>per month</small>";
+    $("#c-lines").innerHTML =
+      '<dt>' + d + ' ' + cs.value + ' &mdash; ' + best.retailer + '</dt><dd>' + money(best.price) + '</dd>' +
+      '<dt>Prescription</dt><dd>' + money(rx) + '</dd>' +
+      '<dt>Needles</dt><dd>' + money(nd) + '</dd>';
+    const steps = (m.titration || []).map(s => cheapest(d, s)).filter(Boolean);
+    $("#c-step").innerHTML = (m.titration && steps.length === m.titration.length)
+      ? 'First four months stepping up (' + m.titration.join(" &rarr; ") + '): <strong>' +
+        money(steps.reduce((a, r) => a + r.price, 0) + 4 * (rx + nd)) + '</strong>'
+      : "";
+  }
+
+  crxp.addEventListener("change", () => { if (crxp.value !== "custom") crx.value = crxp.value; calc(); });
+  crx.addEventListener("input", () => { crxp.value = "custom"; calc(); });
+  cd.addEventListener("change", () => { fillStrengths(); calc(); });
+  cs.addEventListener("change", calc);
+  cn.addEventListener("input", calc);
+  if (penDrugs.length) { fillStrengths(); calc(); }
+
+  // ---------- history ----------
+  const hd = $("#h-drug"), hs = $("#h-strength"), empty = $("#chart-empty");
+  hd.innerHTML = DRUGS.map(d => '<option>' + d + '</option>').join("");
+  let chart;
+
+  function fillHist() {
+    const ss = [...new Set(all.filter(r => r.drug === hd.value).map(r => r.strength))].sort((a, b) => num(a) - num(b));
+    hs.innerHTML = ss.map(s => '<option>' + s + '</option>').join("");
+    const m = META[hd.value];
+    if (m && ss.includes(m.maint)) hs.value = m.maint;
+  }
+
+  function draw() {
+    const rs = all.filter(r => r.drug === hd.value && r.strength === hs.value);
+    const dates = [...new Set(rs.map(r => r.date))].sort();
+    const rts = [...new Set(rs.map(r => r.retailer))].sort();
+    const palette = ["#1F5E56", "#A8443A", "#3D6E9E", "#8A6A2F", "#6B5A9E"];
+    if (chart) chart.destroy();
+    const holder = document.querySelector(".chart-holder");
+    if (dates.length < 2) { holder.hidden = true; empty.hidden = false; return; }
+    holder.hidden = false; empty.hidden = true;
+    chart = new Chart($("#chart"), {
+      type: "line",
+      data: {
+        labels: dates.map(d => new Date(d).toLocaleDateString("en-NZ", { day: "numeric", month: "short" })),
+        datasets: rts.map((rt, i) => {
+          const map = {}; rs.filter(r => r.retailer === rt).forEach(r => map[r.date] = r.price);
+          return {
+            label: rt, data: dates.map(d => map[d] ?? null),
+            borderColor: palette[i % palette.length], backgroundColor: palette[i % palette.length],
+            tension: 0, pointRadius: 3, borderWidth: 2, spanGaps: true
+          };
+        })
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        animation: matchMedia("(prefers-reduced-motion: reduce)").matches ? false : undefined,
+        interaction: { mode: "index", intersect: false },
+        scales: {
+          y: { ticks: { callback: v => "$" + v, color: "#7C8A84", font: { family: "DM Sans", size: 12 } }, grid: { color: "#E5E7E2" }, border: { display: false } },
+          x: { ticks: { color: "#7C8A84", font: { family: "DM Sans", size: 12 } }, grid: { display: false } }
+        },
+        plugins: {
+          legend: { position: "bottom", labels: { boxWidth: 10, boxHeight: 10, usePointStyle: true, pointStyle: "circle", color: "#42504B", font: { family: "DM Sans", size: 13 } } },
+          tooltip: { callbacks: { label: c => c.dataset.label + ": " + money(c.parsed.y) } }
+        }
+      }
+    });
+  }
+
+  hd.addEventListener("change", () => { fillHist(); draw(); });
+  hs.addEventListener("change", draw);
+  fillHist(); draw();
 })();
 </script>
 </body>
