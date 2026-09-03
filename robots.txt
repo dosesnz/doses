@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://doses.nz/sitemap.xml
