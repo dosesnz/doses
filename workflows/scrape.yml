@@ -1,0 +1,37 @@
+# .github/workflows/scrape_v1.yml
+# Runs the GLP-1 price scraper once a day and commits data/prices.csv back to the repo.
+# Free on a public repo. Trigger manually from the Actions tab with workflow_dispatch.
+
+name: scrape-glp1-prices
+
+on:
+  schedule:
+    - cron: "15 20 * * *"   # 20:15 UTC = 08:15 NZST (09:15 NZDT) daily
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install requests beautifulsoup4
+
+      - name: Run scraper
+        run: python glp1_scraper_v7.py
+
+      - name: Commit results
+        run: |
+          git config user.name  "glp1-bot"
+          git config user.email "glp1-bot@users.noreply.github.com"
+          git add data/prices.csv
+          git diff --cached --quiet || git commit -m "prices $(date -u +%F)"
+          git push
