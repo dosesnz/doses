@@ -288,14 +288,13 @@ footer .shell{padding:56px var(--gutter) 72px}
   const RETAILERS = [...new Set(L.map(r => r.retailer))].sort();
   const num = s => { const m = /(\d+(\.\d+)?)/.exec(s); return m ? parseFloat(m[1]) : 0; };
   const ORDER = ["Wegovy", "Mounjaro", "Saxenda"];
+  // Collected in the CSV but not shown: not GLP-1s, so they would distort a comparison.
+  const OTHER = ["Contrave", "Duromine", "Xenical"];
   const DRUGS = [...new Set(L.map(r => r.drug))].filter(d => !OTHER.includes(d))
     .sort((a, b) => {
       const ia = ORDER.indexOf(a), ib = ORDER.indexOf(b);
       return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib) || a.localeCompare(b);
     });
-
-  // Non-GLP-1 prescription options: shown separately because the outcomes differ.
-  const OTHER = ["Contrave", "Duromine", "Xenical"];
 
   const META = {
     Wegovy:   { sub: "semaglutide", head: "Once-weekly, four doses a pen", note: "", needles: 0, maint: "2.4mg", titration: ["0.25mg","0.5mg","1.0mg","1.7mg"] },
