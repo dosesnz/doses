@@ -1,16 +1,20 @@
-# .github/workflows/scrape_v1.yml
-# Runs the GLP-1 price scraper once a day and commits data/prices.csv back to the repo.
-# Free on a public repo. Trigger manually from the Actions tab with workflow_dispatch.
+# .github/workflows/scrape.yml
+# v2: pulls before pushing, so a commit made while the job is running no longer
+#     causes "! [rejected] main -> main (fetch first)".
 
 name: scrape-glp1-prices
 
 on:
   schedule:
-    - cron: "15 20 * * *"   # 20:15 UTC = 08:15 NZST (09:15 NZDT) daily
+    - cron: "15 20 * * *"   # 20:15 UTC = 08:15 NZST (09:15 NZDT)
   workflow_dispatch:
 
 permissions:
   contents: write
+
+concurrency:
+  group: scrape
+  cancel-in-progress: false
 
 jobs:
   scrape:
@@ -33,5 +37,15 @@ jobs:
           git config user.name  "glp1-bot"
           git config user.email "glp1-bot@users.noreply.github.com"
           git add data/prices.csv
-          git diff --cached --quiet || git commit -m "prices $(date -u +%F)"
-          git push
+          git diff --cached --quiet && echo "no changes" && exit 0
+          git commit -m "prices $(date -u +%F)"
+          # Someone may have committed while this job ran. Rebase our single
+          # commit on top of whatever is on main now, then push. Retry a couple
+          # of times in case it happens again mid-push.
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            echo "push attempt $i failed, retrying"
+            sleep 5
+          done
+          echo "could not push after 3 attempts"
+          exit 1
