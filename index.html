@@ -3,24 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Wegovy, Mounjaro and Saxenda prices in NZ — doses.nz</title>
+<title>Wegovy, Mounjaro and Saxenda prices in NZ, glp.nz</title>
 <meta name="description" content="What NZ pharmacies charge for Wegovy, Mounjaro and Saxenda at every strength, and where to buy them.">
-<link rel="canonical" href="https://doses.nz/">
+<link rel="canonical" href="https://glp.nz/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Wegovy, Mounjaro and Saxenda prices in NZ — doses.nz">
+<meta property="og:title" content="Wegovy, Mounjaro and Saxenda prices in NZ, glp.nz">
 <meta property="og:description" content="What NZ pharmacies charge for GLP-1 medication at every strength, and where to buy it.">
-<meta property="og:url" content="https://doses.nz/">
+<meta property="og:url" content="https://glp.nz/">
 <meta name="twitter:card" content="summary">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
-/* ---------- doses.nz design tokens ---------- */
+/* ---------- glp.nz design tokens ---------- */
 :root{
 --paper:#FAFAF8;--white:#fff;--stone:#F3F4F0;--line:#E5E7E2;
 --ink:#151A18;--slate:#42504B;--sage:#7C8A84;
 --teal:#1F5E56;--teal-dark:#17453F;--teal-soft:#EAF2F0;--teal-tint:#F4F8F7;
 --clay:#A8443A;--sand:#FBF3E2;
+--mint:#DCEBE7;--stone-ink:#42504B;
 --radius-card:14px;--radius-control:10px;
 --shadow-card:0 1px 2px rgba(21,26,24,.04),0 10px 30px -18px rgba(21,26,24,.16);
 --max:1100px;--gutter:36px;
@@ -129,18 +130,61 @@ footer .shell{padding:56px var(--gutter) 72px}
 .section{padding:64px var(--gutter)}
 .hero{padding:64px var(--gutter) 48px}
 }
+
+/* drug section heading: brand large, molecule beneath */
+.drug-head{margin-bottom:18px}
+.drug-head h2{font-size:clamp(2rem,4.4vw,2.9rem);letter-spacing:-.03em;line-height:1.02}
+.drug-head .molecule{font-size:1.05rem;color:var(--sage);margin-top:2px;letter-spacing:.01em}
+.drug-head .desc{margin-top:10px;color:var(--stone-ink);max-width:60ch}
+.key{display:flex;align-items:center;gap:7px;font-size:.82rem;color:var(--sage);margin:0 0 10px 2px}
+.key .swatch{width:22px;height:12px;border-radius:3px;background:var(--mint);border:1px solid var(--teal-soft);display:inline-block}
+/* stronger cheapest treatment */
+td .low{display:inline-block;font-size:.74rem;line-height:1.7;color:var(--teal);border:1px solid var(--teal-soft);background:var(--white);border-radius:999px;padding:0 10px;margin-top:6px;font-weight:400;vertical-align:middle}
+td .unit{display:block;font-size:.74rem;font-weight:400;color:var(--sage);margin-top:1px}
+.flat{font-size:.86rem;color:var(--sage);margin:12px 0 0 2px}
+td.moved-down{background:var(--mint);box-shadow:inset 3px 0 0 var(--teal)}
+td.moved-up{background:#FBEFEC;box-shadow:inset 3px 0 0 var(--clay)}
+td .was{display:block;font-size:.74rem;font-weight:400;margin-top:1px;letter-spacing:.01em}
+td.moved-down .was{color:var(--teal)}
+td.moved-up .was{color:var(--clay)}
+.key .swatch.up{background:#FBEFEC;border-color:#F0DAD3}
+.key.pair{gap:18px;flex-wrap:wrap}
+.year{display:grid;grid-template-columns:1fr auto;gap:6px 18px;margin-top:16px;font-size:.95rem}
+.year dt{color:rgba(255,255,255,.72)}
+.year dd{margin:0;text-align:right}
+.year .rule{grid-column:1/-1;height:1px;background:rgba(255,255,255,.18);margin:8px 0}
+
+.delivery{display:grid;gap:0}
+.delivery .row{display:grid;grid-template-columns:190px 1fr;gap:20px;padding:16px 0;border-bottom:1px solid var(--line)}
+.delivery .row:last-child{border-bottom:0}
+.delivery .who{font-weight:500}
+.delivery .what{color:var(--stone-ink);max-width:70ch}
+.delivery .flag{display:inline-block;font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--teal);background:var(--mint);border-radius:3px;padding:2px 7px;margin-right:8px;vertical-align:1px}
+@media(max-width:640px){.delivery .row{grid-template-columns:1fr;gap:6px}}
+
+[hidden]{display:none !important}
+.signup{display:grid;grid-template-columns:1fr auto;gap:10px;max-width:520px;margin-top:20px}
+@media(max-width:520px){.signup{grid-template-columns:1fr}}
+.signup input[type=email]{width:100%;font:inherit;font-size:1rem;padding:12px 14px;border:1px solid var(--line);border-radius:var(--radius-control);background:var(--white);color:var(--ink)}
+.signup input[type=email]::placeholder{color:var(--sage)}
+.signup button{font:inherit;font-size:.98rem;font-weight:500;padding:12px 22px;border:0;border-radius:999px;background:var(--teal);color:#fff;cursor:pointer;white-space:nowrap}
+.signup button:hover{background:var(--teal-dark)}
+.signup .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.triggers{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.triggers li{list-style:none;font-size:.86rem;color:var(--slate);background:var(--white);border:1px solid var(--line);border-radius:999px;padding:4px 13px}
+.signup-note{font-size:.84rem;color:var(--sage);margin-top:14px}
 </style>
 </head>
 <body>
 
 <nav class="nav">
   <div class="shell">
-    <a class="mark" href="#top">doses<span>.nz</span></a>
+    <a class="mark" href="#top">glp<span>.nz</span></a>
     <div class="nav-right">
       <div class="nav-links">
         <a href="#prices">Prices</a>
-        <a href="#cost">Monthly cost</a>
-        <a href="#history">History</a>
+        <a href="#history" id="nav-history" hidden>History</a>
+        <a href="side-effects.html">Side effects</a>
         <a href="ozempic.html">Ozempic</a>
         <a href="studies.html">Studies</a>
       </div>
@@ -159,11 +203,24 @@ footer .shell{padding:56px var(--gutter) 72px}
 
 <div id="prices"></div>
 
+<div class="band-stone" id="delivery">
+  <section class="section shell">
+    <div class="section-head">
+      <div class="kicker">Delivery</div>
+      <h2>Getting it to you</h2>
+      <p>These are fridge lines. A cheaper pen with a handling fee, or a wait for the next dispatch day, may not be the cheaper option.</p>
+    </div>
+    <div class="card">
+      <div class="delivery" id="delivery-list"></div>
+    </div>
+  </section>
+</div>
+
 <div class="band-stone" id="cost">
   <section class="section shell">
     <div class="section-head">
       <div class="kicker">Calculator</div>
-      <h2>What a month costs</h2>
+      <h2>What a year costs</h2>
     </div>
     <div class="calc">
       <div class="card">
@@ -179,9 +236,9 @@ footer .shell{padding:56px var(--gutter) 72px}
           <label for="c-rx">Prescription fee, per month</label>
           <div class="stack">
             <select id="c-rx-preset">
-              <option value="26.67">Online GP — $80 for 3 months</option>
-              <option value="60">Pharmacist consult — about $60</option>
-              <option value="0">Already have a script — $0</option>
+              <option value="26.67">Online GP, $80 for 3 months</option>
+              <option value="60">Pharmacist consult, about $60</option>
+              <option value="0">Already have a script, $0</option>
               <option value="custom">Enter my own</option>
             </select>
             <div class="money"><span>$</span><input type="number" id="c-rx" value="26.67" min="0" step="0.01"></div>
@@ -195,14 +252,13 @@ footer .shell{padding:56px var(--gutter) 72px}
       </div>
       <div class="card card-accent">
         <div class="total" id="c-total">&nbsp;</div>
-        <dl id="c-lines"></dl>
-        <div class="foot" id="c-step"></div>
+        <dl class="year" id="c-lines"></dl>
       </div>
     </div>
   </section>
 </div>
 
-<section class="section shell" id="history">
+<section class="section shell" id="history" hidden>
   <div class="section-head">
     <div class="kicker">History</div>
     <h2>How prices have moved</h2>
@@ -217,10 +273,33 @@ footer .shell{padding:56px var(--gutter) 72px}
   </div>
 </section>
 
+<div class="band-stone" id="alerts" hidden>
+  <section class="section shell">
+    <div class="section-head">
+      <div class="kicker">Email</div>
+      <h2>Know when something changes</h2>
+      <ul class="triggers">
+        <li>A price moves</li>
+        <li>A new medicine arrives</li>
+        <li>Pharmac changes what is funded</li>
+      </ul>
+    </div>
+    <div class="card">
+      <form class="signup" id="alerts-form" method="post" target="_blank" rel="noopener">
+        <label class="hp" for="company">Leave this empty</label>
+        <input class="hp" type="text" id="company" name="company" tabindex="-1" autocomplete="off">
+        <input type="email" name="email" id="alerts-email" placeholder="you@example.co.nz" required autocomplete="email" aria-label="Email address">
+        <button type="submit">Sign up</button>
+      </form>
+      <p class="signup-note">Unsubscribe from any email.</p>
+    </div>
+  </section>
+</div>
+
 <footer>
   <div class="shell">
     <div class="fine">
-      <p>doses.nz is an independent price tracker. Prices come from each retailer's public website and may differ from what you're charged in store — the retailer's site is the source of truth. Links to retailers may earn a small commission; it doesn't change the order or the numbers shown.</p>
+      <p>glp.nz is an independent price tracker. Prices come from each retailer's public website and may differ from what you're charged in store, the retailer's site is the source of truth.</p>
       <p>Nothing here is medical advice. Data sheets and consumer medicine information are on <a href="https://www.medsafe.govt.nz">Medsafe</a>. Prices are published as a <a href="data/prices.csv">CSV</a> you're welcome to reuse with attribution.</p>
     </div>
   </div>
@@ -229,6 +308,17 @@ footer .shell{padding:56px var(--gutter) 72px}
 <script>
 (async function () {
   const $ = s => document.querySelector(s);
+
+  // Paste the form endpoint from your email provider here (MailerLite and
+  // Buttondown both give you a plain URL that accepts an email field). The
+  // signup section stays hidden until this is filled in, and no API key is
+  // involved, so nothing sensitive lives in this file.
+  const MAILING_LIST_ENDPOINT = "";
+
+  // Note for the send step, when it is built: the table marks any change, but an
+  // email should only go out when a price moves by 1.5% or more. That is about
+  // $6.45 on a $430 pen and $13.12 on an $875 one, which ignores cent-level
+  // matching between pharmacies and catches a real RRP change.
   const money = n => "$" + Number(n).toLocaleString("en-NZ", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
   // ---------- load ----------
@@ -272,17 +362,47 @@ footer .shell{padding:56px var(--gutter) 72px}
 
   if (!all.length) { $("#stamp").textContent = "No prices recorded yet"; return; }
 
-  // latest row per retailer+drug+strength
+  // Use only the most recent scrape. Older runs used different label formats for
+  // the same product, so mixing days would show one pen as several rows.
+  const lastDay = all.map(r => r.date).sort().pop();
+  const today = all.filter(r => r.date === lastDay);
   const latestMap = {};
-  for (const r of all) {
+  for (const r of today) {
     const k = [r.retailer, r.drug, r.strength].join("|");
     if (!latestMap[k] || r.ts > latestMap[k].ts) latestMap[k] = r;
   }
   const L = Object.values(latestMap);
 
+  // Previous price per retailer+drug+strength: the most recent earlier record that
+  // differs from today's. A price that moved is the thing worth pointing at; a one
+  // cent gap between pharmacies is not.
+  // How long a price move stays marked. A change is news for a while, then it is
+  // just the price. The historical low badge has no window: it describes the whole
+  // record, not a recent event.
+  const MOVE_WINDOW_DAYS = 30;
+  const latestTs = L.map(r => r.ts).sort().pop();
+  const cutoff = Date.parse(latestTs) - MOVE_WINDOW_DAYS * 86400000;
+
+  const PREV = {};   // price it moved from, only if that move was recent
+  const LOW  = {};   // true when today's price is the lowest ever recorded here
+  for (const r of L) {
+    const k = [r.retailer, r.drug, r.strength].join("|");
+    const series = all.filter(x => x.retailer === r.retailer && x.drug === r.drug &&
+                                   x.strength === r.strength);
+    const past = series.filter(x => x.ts < r.ts).sort((a, b) => a.ts < b.ts ? 1 : -1);
+    // Walk back to the last record at a different price. The move happened just
+    // after it, so date that record to decide whether the change is still recent.
+    const changed = past.find(x => x.price !== r.price);
+    if (changed && Date.parse(changed.ts) >= cutoff) PREV[k] = changed.price;
+    // Only meaningful once a price has actually varied: on day one every price is
+    // trivially the lowest recorded, which tells the reader nothing.
+    const distinct = new Set(series.map(x => x.price));
+    if (distinct.size > 1 && r.price === Math.min(...distinct)) LOW[k] = true;
+  }
+
   const newest = L.map(r => r.ts).sort().pop();
   const stampText = "Updated " +
-    new Date(newest).toLocaleString("en-NZ", { hour: "numeric", minute: "2-digit", day: "numeric", month: "long" }).replace(",", "");
+    new Date(newest).toLocaleDateString("en-NZ", { day: "numeric", month: "long", year: "numeric" });
   $("#stamp").innerHTML = '<time datetime="' + newest + '">' + stampText + '</time>';
 
   const RETAILERS = [...new Set(L.map(r => r.retailer))].sort();
@@ -290,123 +410,147 @@ footer .shell{padding:56px var(--gutter) 72px}
   const ORDER = ["Wegovy", "Mounjaro", "Saxenda"];
   // Collected in the CSV but not shown: not GLP-1s, so they would distort a comparison.
   const OTHER = ["Contrave", "Duromine", "Xenical"];
-  const DRUGS = [...new Set(L.map(r => r.drug))].filter(d => !OTHER.includes(d))
-    .sort((a, b) => {
-      const ia = ORDER.indexOf(a), ib = ORDER.indexOf(b);
-      return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib) || a.localeCompare(b);
-    });
-
   const META = {
     Wegovy:   { sub: "semaglutide", head: "Once-weekly, four doses a pen", note: "", needles: 0, maint: "2.4mg", titration: ["0.25mg","0.5mg","1.0mg","1.7mg"] },
     Mounjaro: { sub: "tirzepatide", head: "KwikPen, four doses a pen",     note: "", needles: 0, maint: "5mg", titration: ["2.5mg","5mg","7.5mg","10mg"] },
     Saxenda:  { sub: "liraglutide", head: "Daily, sold by the pack",       note: "Check the pack size before comparing.", needles: 0 }
   };
 
+  const isOther = d => OTHER.some(o => d.toLowerCase().startsWith(o.toLowerCase()));
+  const DRUGS = [...new Set(L.map(r => r.drug))].filter(d => !isOther(d) && META[d])
+    .sort((a, b) => {
+      const ia = ORDER.indexOf(a), ib = ORDER.indexOf(b);
+      return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib) || a.localeCompare(b);
+    });
+
+
   const strengthsFor = d => [...new Set(L.filter(r => r.drug === d).map(r => r.strength))]
     .sort((a, b) => num(a) - num(b) || a.localeCompare(b));
 
   // ---------- price tables ----------
   const host = $("#prices");
+
+  // Marks describe how a price has moved over time, not how pharmacies compare
+  // today: the gaps between them are usually cents, which is not worth pointing at.
+  // Pack products (Saxenda) let the buyer choose the size, so a per-pen figure is a
+  // real comparison. Dose strengths do not: the prescriber sets those.
+  const packUnits = str => {
+    const m = /^(\d+)\s*x\s*/i.exec(str);
+    return m ? parseInt(m[1], 10) : null;
+  };
+
   DRUGS.forEach((d, idx) => {
     const m = META[d] || { sub: "", head: d, note: "", needles: 0 };
     const rs = L.filter(r => r.drug === d);
     const cols = RETAILERS.filter(rt => rs.some(r => r.retailer === rt));
     const strengths = strengthsFor(d);
-    const isPack = strengths.some(s => !/^[\d.]+mg$/.test(s));
     if (!strengths.length) return;
+    const isPack = strengths.some(s => !/^[\d.]+mg$/.test(s));
 
     let body = "";
-    for (const s of strengths) {
-      const cells = cols.map(rt => rs.find(r => r.retailer === rt && r.strength === s));
+    let anyMove = false;
+    let smallestGapSeen = Infinity;
+
+    for (const st of strengths) {
+      if (!st) continue;
+      const cells = cols.map(rt => rs.find(r => r.retailer === rt && r.strength === st));
       const live = cells.filter(c => c && !c.oos).map(c => c.price);
-      const min = live.length ? Math.min(...live) : null;
-      if (!s) continue;   // never render a nameless row
-      body += "<tr><td>" + s + "</td>" + cells.map(c => {
-        if (!c) return '<td class="na">&mdash;</td>';
-        const best = !c.oos && c.price === min;
-        return '<td class="' + (best ? "best" : "") + '"><a href="' + c.url + '" rel="nofollow noopener" target="_blank">' + money(c.price) + '</a>' +
-               (c.oos ? '<span class="oos">Out of stock</span>' : '') + '</td>';
+      const lo = live.length ? Math.min(...live) : null;
+      const hi = live.length ? Math.max(...live) : null;
+      const gap = (live.length > 1) ? (hi - lo) : null;
+      if (gap !== null) smallestGapSeen = Math.min(smallestGapSeen, gap);
+
+      const units = isPack ? packUnits(st) : null;
+
+      body += "<tr><td>" + st + "</td>" + cells.map(c => {
+        if (!c) return '<td class="na">&ndash;</td>';
+        const k = [c.retailer, c.drug, c.strength].join("|");
+        const prev = PREV[k];
+        const moved = prev !== undefined;
+        const isLow = LOW[k] === true;
+        if (moved) anyMove = true;
+        const cls = moved ? (c.price < prev ? "moved-down" : "moved-up") : "";
+        const unit = (units && units > 1)
+          ? '<span class="unit">' + money(c.price / units) + ' each</span>' : "";
+        const was = moved ? '<span class="was">was ' + money(prev) + '</span>' : "";
+        const low = isLow ? '<span class="low">historical low</span>' : "";
+        return '<td class="' + cls + '">' +
+               '<a href="' + c.url + '" rel="nofollow noopener" target="_blank">' + money(c.price) + '</a>' +
+               (c.oos ? '<span class="oos">Out of stock</span>' : "") + was + unit + low + '</td>';
       }).join("") + "</tr>";
+    }
+
+    // Only explain the key when something is actually marked. Where every pharmacy
+    // charges within a few dollars, say that instead: it is the more useful fact.
+    let footNote = "";
+    const keys = [];
+    if (anyMove) keys.push('<span class="swatch"></span>price fell',
+                           '<span class="swatch up"></span>price rose');
+    if (keys.length) {
+      footNote = '<p class="key pair">' + keys.join(" ") + '</p>';
+    } else if (cols.length > 1 && smallestGapSeen < Infinity) {
+      footNote = '<p class="flat">Every pharmacy is within ' + money(Math.max(smallestGapSeen, 0)) +
+                 ' on each strength.</p>';
     }
 
     host.insertAdjacentHTML("beforeend",
       '<section class="section shell"' + (idx ? ' style="padding-top:0"' : '') + '>' +
-        '<div class="section-head">' +
-          '<div class="kicker">' + d + (m.sub ? ' &middot; ' + m.sub : '') + '</div>' +
-          '<h2>' + m.head + '</h2>' +
-          (m.note ? '<p>' + m.note + '</p>' : '') +
+        '<div class="section-head drug-head">' +
+          '<h2>' + d + '</h2>' +
+          (m.sub ? '<div class="molecule">' + m.sub + '</div>' : '') +
+          '<p class="desc">' + m.head + (m.note ? '. ' + m.note : '') + '</p>' +
         '</div>' +
         '<div class="card card-flush"><div class="tablewrap"><table>' +
-          '<thead><tr><th>' + (isPack ? "Pack" : "Strength") + '</th>' + cols.map(c => '<th>' + c + '</th>').join("") + '</tr></thead>' +
+          '<thead><tr><th>' + (isPack ? "Pack" : "Strength") + '</th>' +
+            cols.map(c => '<th>' + c + '</th>').join("") + '</tr></thead>' +
           '<tbody>' + body + '</tbody>' +
-        '</table></div></div>' +
+        '</table></div></div>' + footNote +
       '</section>');
   });
 
-  // ---------- stats band ----------
-  // ---------- structured data ----------
-  // Emit schema.org Product/Offer per pen so search engines can show price
-  // snippets, plus a Dataset node for the price history. Built from the same
-  // rows the tables use, so it can never drift from what's on the page.
-  (function structuredData() {
-    const graph = [];
+  // ---------- email signup ----------
+  if (MAILING_LIST_ENDPOINT) {
+    const form = $("#alerts-form");
+    form.action = MAILING_LIST_ENDPOINT;
+    $("#alerts").hidden = false;
+  }
 
-    for (const d of DRUGS) {
-      for (const st of strengthsFor(d)) {
-        const offers = L.filter(r => r.drug === d && r.strength === st);
-        if (!offers.length) continue;
-        const prices = offers.map(o => o.price);
-        graph.push({
-          "@type": "Product",
-          "name": d + " " + st,
-          "category": "Prescription medicine",
-          "offers": {
-            "@type": "AggregateOffer",
-            "priceCurrency": "NZD",
-            "lowPrice": Math.min(...prices).toFixed(2),
-            "highPrice": Math.max(...prices).toFixed(2),
-            "offerCount": offers.length,
-            "offers": offers.map(o => ({
-              "@type": "Offer",
-              "price": o.price.toFixed(2),
-              "priceCurrency": "NZD",
-              "url": o.url,
-              "availability": o.oos
-                ? "https://schema.org/OutOfStock"
-                : "https://schema.org/InStock",
-              "seller": { "@type": "Organization", "name": o.retailer }
-            }))
-          }
-        });
-      }
+  // ---------- delivery notes ----------
+  // Hand-maintained: these are prose on retailer sites, not scrapeable, and they
+  // change rarely. Update the text here when a pharmacy changes its conditions.
+  const DELIVERY = {
+    "Chemist Warehouse": {
+      flag: "Mon\u2013Wed dispatch",
+      text: "Fridge lines ship Mondays, Tuesdays and Wednesdays only. An order placed later in the week is held until the next dispatch day so it doesn't sit in transit over a weekend. Sent with an ice pack in insulated packaging."
+    },
+    "Bargain Chemist": {
+      flag: "",
+      text: "Prescription required before dispatch. Some strengths show as backordered and ship when stock arrives."
+    },
+    "PillDrop": {
+      flag: "Free shipping",
+      text: "Free nationwide delivery, cold-chain packed."
+    },
+    "Zoom Pharmacy": {
+      flag: "$15 handling",
+      text: "A cold-chain handling charge applies on delivery, on top of the listed price."
     }
+  };
 
-    graph.push({
-      "@type": "Dataset",
-      "name": "NZ GLP-1 pharmacy prices",
-      "description": "Daily record of advertised prices for GLP-1 medication at New Zealand pharmacies.",
-      "url": "https://doses.nz/",
-      "dateModified": newest,
-      "license": "https://creativecommons.org/licenses/by/4.0/",
-      "distribution": {
-        "@type": "DataDownload",
-        "encodingFormat": "text/csv",
-        "contentUrl": "https://doses.nz/data/prices.csv"
-      }
-    });
-
-    graph.push({
-      "@type": "WebPage",
-      "url": "https://doses.nz/",
-      "name": document.title,
-      "dateModified": newest
-    });
-
-    const tag = document.createElement("script");
-    tag.type = "application/ld+json";
-    tag.textContent = JSON.stringify({ "@context": "https://schema.org", "@graph": graph });
-    document.head.appendChild(tag);
-  })();
+  const dHost = document.querySelector("#delivery-list");
+  if (dHost) {
+    const shown = RETAILERS.filter(r => DELIVERY[r]);
+    if (shown.length) {
+      dHost.innerHTML = shown.map(r => {
+        const d = DELIVERY[r];
+        return '<div class="row"><div class="who">' + r + '</div>' +
+               '<div class="what">' + (d.flag ? '<span class="flag">' + d.flag + '</span>' : '') +
+               d.text + '</div></div>';
+      }).join("");
+    } else {
+      document.querySelector("#delivery").remove();
+    }
+  }
 
   // ---------- calculator ----------
   const cd = $("#c-drug"), cs = $("#c-strength"), crx = $("#c-rx"), crxp = $("#c-rx-preset"), cn = $("#c-needles");
@@ -428,19 +572,30 @@ footer .shell{padding:56px var(--gutter) 72px}
 
   function calc() {
     const d = cd.value, m = META[d] || {};
-    const best = cheapest(d, cs.value);
-    if (!best) return;
+    const maint = cheapest(d, cs.value);
+    if (!maint) return;
     const rx = +crx.value || 0, nd = +cn.value || 0;
-    $("#c-total").innerHTML = money(best.price + rx + nd) + "<small>per month</small>";
+
+    // Titration months first, then the selected strength for the rest of the year.
+    const path = (m.titration || []).map(s => cheapest(d, s)).filter(Boolean);
+    const titrationMonths = path.length;
+    const maintMonths = Math.max(0, 12 - titrationMonths);
+    const pensCost = path.reduce((a, r) => a + r.price, 0) + maintMonths * maint.price;
+    const extras = 12 * (rx + nd);
+
+    $("#c-total").innerHTML = money(pensCost + extras) + "<small>first year</small>";
     $("#c-lines").innerHTML =
-      '<dt>' + d + ' ' + cs.value + ' &mdash; ' + best.retailer + '</dt><dd>' + money(best.price) + '</dd>' +
-      '<dt>Prescription</dt><dd>' + money(rx) + '</dd>' +
-      '<dt>Needles</dt><dd>' + money(nd) + '</dd>';
-    const steps = (m.titration || []).map(s => cheapest(d, s)).filter(Boolean);
-    $("#c-step").innerHTML = (m.titration && steps.length === m.titration.length)
-      ? 'Starting out, ' + m.titration.join(" &rarr; ") + ' over four months: <strong>' +
-        money(steps.reduce((a, r) => a + r.price, 0) + 4 * (rx + nd)) + '</strong>'
-      : "";
+      (titrationMonths
+        ? '<dt>Months 1 to ' + titrationMonths + ', stepping up</dt><dd>' +
+          money(path.reduce((a, r) => a + r.price, 0)) + '</dd>'
+        : '') +
+      '<dt>Months ' + (titrationMonths + 1) + ' to 12 at ' + cs.value + '</dt><dd>' +
+        money(maintMonths * maint.price) + '</dd>' +
+      '<dt>Prescriptions, 12 months</dt><dd>' + money(12 * rx) + '</dd>' +
+      (nd ? '<dt>Needles, 12 months</dt><dd>' + money(12 * nd) + '</dd>' : '') +
+      '<div class="rule"></div>' +
+      '<dt>Cheapest at</dt><dd>' + maint.retailer + '</dd>' +
+      '<dt>Average per month</dt><dd>' + money((pensCost + extras) / 12) + '</dd>';
   }
 
   crxp.addEventListener("change", () => { if (crxp.value !== "custom") crx.value = crxp.value; calc(); });
@@ -469,7 +624,9 @@ footer .shell{padding:56px var(--gutter) 72px}
     const palette = ["#1F5E56", "#A8443A", "#3D6E9E", "#8A6A2F", "#6B5A9E"];
     if (chart) chart.destroy();
     const holder = document.querySelector(".chart-holder");
-    if (dates.length < 2) { holder.hidden = true; empty.hidden = false; return; }
+    if (dates.length < 2) { document.querySelector("#history").hidden = true; return; }
+    document.querySelector("#history").hidden = false;
+    const nh = document.querySelector("#nav-history"); if (nh) nh.hidden = false;
     holder.hidden = false; empty.hidden = true;
     chart = new Chart($("#chart"), {
       type: "line",

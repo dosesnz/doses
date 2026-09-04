@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GLP-1 side effects, dosing and how to use the pen, glp.nz</title>
+<meta name="description" content="Side effects of Wegovy and Mounjaro, what to do about them, the approved dose schedules, and how the pens are stored and used. Sourced from Medsafe.">
+<link rel="canonical" href="https://glp.nz/side-effects.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="GLP-1 side effects, dosing and pen use, NZ">
+<meta property="og:description" content="Side effects of Wegovy and Mounjaro, what to do about them, and the approved dose schedules.">
+<meta property="og:url" content="https://glp.nz/side-effects.html">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+/* ---------- glp.nz design tokens ---------- */
+:root{
+--paper:#FAFAF8;--white:#fff;--stone:#F3F4F0;--line:#E5E7E2;
+--ink:#151A18;--slate:#42504B;--sage:#7C8A84;
+--teal:#1F5E56;--teal-dark:#17453F;--teal-soft:#EAF2F0;--teal-tint:#F4F8F7;
+--clay:#A8443A;--sand:#FBF3E2;
+--mint:#DCEBE7;
+--radius-card:14px;--radius-control:10px;
+--shadow-card:0 1px 2px rgba(21,26,24,.04),0 10px 30px -18px rgba(21,26,24,.16);
+--max:1100px;--gutter:36px;
+}
+*{box-sizing:border-box}
+html{font-size:16.5px;-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--slate);font-family:"DM Sans",system-ui,-apple-system,sans-serif;line-height:1.6;font-feature-settings:"tnum" 1}
+h1,h2,h3{color:var(--ink);font-weight:400;margin:0}
+p{margin:0;text-wrap:pretty}
+a{color:var(--teal);text-underline-offset:2px}
+a:hover{color:var(--teal-dark)}
+:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+.shell{max-width:var(--max);margin:0 auto;padding:0 var(--gutter)}
+
+/* ---------- nav ---------- */
+.nav{position:sticky;top:0;z-index:5;background:rgba(250,250,248,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav .shell{height:66px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.mark{font-weight:500;font-size:1.2rem;letter-spacing:-.012em;text-decoration:none;color:var(--ink)}
+.mark span{color:var(--teal)}
+.nav-right{display:flex;align-items:center;gap:32px}
+.nav-links{display:flex;gap:32px;font-size:.88rem}
+.nav-links a{color:var(--slate);text-decoration:none;transition:color 140ms cubic-bezier(.2,.6,.2,1)}
+.btn{display:inline-block;font-size:.88rem;font-weight:500;padding:12px 22px;border-radius:999px;text-decoration:none;border:1px solid transparent;cursor:pointer;font-family:inherit;transition:background 140ms cubic-bezier(.2,.6,.2,1),color 140ms cubic-bezier(.2,.6,.2,1)}
+.btn-primary{background:var(--teal);color:#fff}
+.btn-primary:hover{background:var(--teal-dark);color:#fff}
+.btn-secondary{color:var(--teal);border-color:var(--teal);background:transparent}
+.btn-secondary:hover{background:var(--teal-tint)}
+
+/* ---------- type ---------- */
+.kicker{font-size:.72rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+.kicker-muted{color:var(--sage)}
+.hero{padding:96px var(--gutter) 72px;text-align:center;display:grid;justify-items:center;gap:20px}
+.hero h1{font-size:clamp(2.35rem,4.4vw,3.15rem);line-height:1.08;letter-spacing:-.028em;max-width:26ch}
+.hero .lede{font-size:1.09rem;max-width:56ch}
+.hero-actions{display:flex;gap:12px;margin-top:8px;flex-wrap:wrap;justify-content:center}
+.section{padding:88px var(--gutter)}
+.section-head{text-align:center;max-width:58ch;margin:0 auto 40px;display:grid;justify-items:center;gap:12px}
+.section-head h2{font-size:2.06rem;line-height:1.16;letter-spacing:-.024em}
+
+/* ---------- bands ---------- */
+.band{background:var(--white);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.band-stone{background:var(--stone);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;padding:44px var(--gutter);text-align:center}
+.stat-value{font-size:2.42rem;color:var(--ink);letter-spacing:-.024em;line-height:1}
+.stat-label{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--sage);margin-top:12px}
+.stat-sub{font-size:.94rem;color:var(--sage);margin-top:4px}
+
+/* ---------- cards ---------- */
+.card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius-card);box-shadow:var(--shadow-card);padding:32px}
+.card-flush{padding:0;overflow:hidden}
+.card-accent{background:var(--teal);color:#fff;border-color:var(--teal)}
+
+/* ---------- tables ---------- */
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:620px}
+th{font-size:.7rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--sage);background:var(--stone);text-align:right;padding:18px 20px;border-bottom:1px solid var(--line);white-space:nowrap}
+th:first-child{text-align:left}
+td{padding:18px 20px;text-align:right;border-bottom:1px solid var(--line);font-size:1.06rem;color:var(--ink);white-space:nowrap}
+td:first-child{text-align:left;font-size:1rem;color:var(--slate);font-weight:500}
+tr:last-child td{border-bottom:0}
+td.best{background:var(--teal-soft);color:var(--teal);font-weight:500}
+td.na{color:var(--sage)}
+td a{color:inherit;text-decoration:none}
+td a:hover{text-decoration:underline}
+.oos{display:block;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--clay);margin-top:4px}
+.legend{font-size:.94rem;color:var(--sage);margin-top:16px;text-align:center}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;background:var(--teal-soft);border:1px solid var(--line);margin-right:7px}
+
+/* ---------- calculator ---------- */
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.field{margin-bottom:20px}
+.field:last-child{margin-bottom:0}
+.field label{display:block;font-size:.7rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--sage);margin-bottom:8px}
+.field .hint{font-size:.94rem;color:var(--sage);margin-top:8px}
+select,.money{width:100%;font:inherit;font-size:1rem;color:var(--ink);padding:13px 15px;border:1px solid var(--line);border-radius:var(--radius-control);background:var(--white)}
+select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--sage) 50%),linear-gradient(135deg,var(--sage) 50%,transparent 50%);background-position:calc(100% - 20px) 55%,calc(100% - 15px) 55%;background-size:5px 5px,5px 5px;background-repeat:no-repeat}
+.money{display:flex;align-items:center;gap:4px;padding:0 15px}
+.money span{color:var(--sage)}
+.money input{flex:1;font:inherit;font-size:1rem;color:var(--ink);border:0;background:transparent;padding:13px 0;outline:none;font-feature-settings:"tnum" 1;width:100%}
+.stack{display:grid;gap:8px}
+.total{font-size:3.4rem;line-height:1;letter-spacing:-.024em}
+.total small{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;opacity:.75;margin-left:12px}
+.card-accent dl{display:grid;grid-template-columns:1fr auto;gap:12px 20px;margin:32px 0 0;font-size:.94rem}
+.card-accent dt{opacity:.78}
+.card-accent dd{margin:0;text-align:right}
+.card-accent .foot{margin-top:24px;padding-top:16px;border-top:1px solid rgba(255,255,255,.28);font-size:.94rem;opacity:.92}
+.card-accent strong{font-weight:500}
+
+/* ---------- chart ---------- */
+.chart-controls{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+.chart-controls>div{width:190px}
+.chart-controls>div+div{width:150px}
+.chart-holder{height:320px}
+
+/* ---------- notice + footer ---------- */
+.notice{background:var(--sand);color:var(--ink);border-radius:var(--radius-control);padding:16px 20px;font-size:.94rem;max-width:74ch}
+.scope{display:grid;justify-items:center;gap:20px}
+footer{border-top:1px solid var(--line)}
+footer .shell{padding:56px var(--gutter) 72px}
+.fine{max-width:74ch;margin:0 auto;text-align:center;color:var(--sage);font-size:.82rem;display:grid;gap:12px}
+
+@media(max-width:820px){
+.calc{grid-template-columns:1fr}
+.stats{grid-template-columns:1fr;gap:32px}
+.nav-links{display:none}
+.section{padding:64px var(--gutter)}
+.hero{padding:64px var(--gutter) 48px}
+}
+
+.lead-note{background:var(--stone);border-left:3px solid var(--teal);padding:18px 22px;border-radius:6px;margin-bottom:8px}
+.lead-note p{margin:0;max-width:74ch}
+.urgent{background:#FDF1EE;border-left:3px solid #A8443A;padding:18px 22px;border-radius:6px}
+.urgent h3{font-size:1.05rem;margin-bottom:8px;color:#8E3830}
+.urgent ul{margin:0;padding-left:20px}
+.urgent li{margin:5px 0}
+.sx{display:grid;grid-template-columns:1fr 1fr;gap:26px 34px}
+@media(max-width:760px){.sx{grid-template-columns:1fr}}
+.sx h3{font-size:1.02rem;margin-bottom:4px}
+.sx .freq{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--sage);margin-bottom:8px}
+.sx ul{margin:0;padding-left:20px} .sx li{margin:4px 0}
+.dose-table{width:100%;border-collapse:collapse}
+.dose-table th,.dose-table td{padding:11px 14px;border-bottom:1px solid var(--line);font-size:.96rem;text-align:left}
+.dose-table th{font-size:.78rem;letter-spacing:.07em;text-transform:uppercase;color:var(--sage);font-weight:500}
+.dose-table td:last-child,.dose-table th:last-child{text-align:right}
+.dose-table tr:last-child td{border-bottom:0}
+.howto{counter-reset:step}
+.howto .row{display:flex;gap:18px;padding:18px 0;border-bottom:1px solid var(--line)}
+.howto .row:last-child{border-bottom:0}
+.howto .n{flex:0 0 30px;height:30px;border-radius:50%;background:var(--mint);color:var(--teal);display:flex;align-items:center;justify-content:center;font-size:.88rem;font-weight:600}
+.howto h3{font-size:1rem;margin-bottom:4px}
+.howto p{margin:0;max-width:70ch}
+.src-line{font-size:.84rem;color:var(--sage);margin-top:18px}
+.src-line a{color:var(--sage)}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="shell">
+    <a class="mark" href="index.html">glp<span>.nz</span></a>
+    <div class="nav-right">
+      <div class="nav-links">
+        <a href="index.html#prices">Prices</a>
+        <a href="side-effects.html">Side effects</a>
+        <a href="ozempic.html">Ozempic</a>
+        <a href="studies.html">Studies</a>
+      </div>
+      <a class="btn btn-primary" href="index.html#prices">Today's prices</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero" id="top">
+  <h1>Side effects, dosing and using the pen.</h1>
+  <p class="lede">What the approved New Zealand product information says. Your prescriber decides what applies to you.</p>
+</section>
+
+<section class="section shell">
+  <div class="lead-note">
+    <p>This is a summary of the approved New Zealand product information, not a substitute for the leaflet in your pack or for what your prescriber tells you. glp.nz is not a substitute for a clinician and gives no medical advice.</p>
+  </div>
+</section>
+
+<section class="section shell" style="padding-top:0">
+  <div class="section-head">
+    <div class="kicker">When to get help</div>
+    <h2>Signs that need a doctor</h2>
+  </div>
+  <div class="card">
+    <div class="urgent">
+      <h3>Contact a doctor straight away, or call 111 if severe</h3>
+      <ul>
+        <li>Severe or persistent abdominal pain, especially pain radiating to the back. This can indicate pancreatitis</li>
+        <li>Pain in the upper right abdomen with nausea, fever or yellowing of the skin or eyes, which can indicate gallbladder problems</li>
+        <li>Signs of an allergic reaction: swelling of the face, lips or throat, difficulty breathing, a sudden rash</li>
+        <li>Vomiting or diarrhoea severe enough that you cannot keep fluids down, or you become lightheaded and stop passing urine, which is dehydration</li>
+        <li>Sudden changes to your vision</li>
+        <li>A racing heartbeat with no clear cause</li>
+      </ul>
+    </div>
+    <p style="margin-top:18px">For anything milder, contact whoever prescribed for you before changing or stopping the medicine yourself. Healthline is free on 0800 611 116, and your pharmacist can advise without an appointment.</p>
+  </div>
+</section>
+
+<div class="band-stone">
+  <section class="section shell">
+    <div class="section-head">
+      <div class="kicker">What to expect</div>
+      <h2>Common side effects</h2>
+      <p>Most are gastrointestinal, most appear while the dose is increasing, and most settle. They are the reason the dose is stepped up slowly rather than started at full strength.</p>
+    </div>
+    <div class="card">
+      <div class="sx">
+        <div>
+          <h3>Very common</h3>
+          <div class="freq">More than 1 in 10 people</div>
+          <ul>
+            <li>Nausea</li>
+            <li>Vomiting</li>
+            <li>Diarrhoea</li>
+            <li>Constipation</li>
+            <li>Abdominal pain</li>
+            <li>Headache</li>
+            <li>Fatigue</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Less common, but reported</h3>
+          <div class="freq">Fewer than 1 in 10</div>
+          <ul>
+            <li>Dizziness, mainly while the dose is increasing</li>
+            <li>Reactions at the injection site</li>
+            <li>Gallstones and gallbladder inflammation</li>
+            <li>Hair thinning</li>
+            <li>Changes in taste</li>
+            <li>Worsening of existing diabetic eye disease</li>
+          </ul>
+        </div>
+      </div>
+      <p style="margin-top:24px">In the SELECT trial of semaglutide, 16.6% of participants stopped treatment because of side effects, against 8.2% on placebo. Roughly one person in six found them intolerable over four years. Dizziness during dose escalation is the reason the data sheet advises caution with driving in that period.</p>
+    </div>
+  </section>
+</div>
+
+<section class="section shell">
+  <div class="section-head">
+    <div class="kicker">Practical</div>
+    <h2>Managing the common ones</h2>
+  </div>
+  <div class="card">
+    <div class="howto">
+      <div class="row"><div class="n">1</div><div><h3>Nausea</h3><p>Eating smaller portions, stopping when full, and avoiding rich or greasy food are what the product information suggests. Nausea usually eases after the first few weeks at a given dose.</p></div></div>
+      <div class="row"><div class="n">2</div><div><h3>Vomiting or diarrhoea</h3><p>The main risk is dehydration. Keep fluids up. If you cannot keep fluids down, that is a reason to call someone rather than wait it out.</p></div></div>
+      <div class="row"><div class="n">3</div><div><h3>Constipation</h3><p>Fluid, fibre and movement are the usual first steps. Your pharmacist can suggest something over the counter if it persists.</p></div></div>
+      <div class="row"><div class="n">4</div><div><h3>If side effects are stopping you</h3><p>Talk to your prescriber before changing anything. They may hold you at the same dose for longer, or step up more slowly, rather than moving to the next strength on schedule.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="band-stone">
+  <section class="section shell">
+    <div class="section-head">
+      <div class="kicker">Approved schedules</div>
+      <h2>How the dose is stepped up</h2>
+      <p>The schedules in the approved New Zealand product information. Your prescriber may vary them, commonly by holding a dose longer if side effects are difficult.</p>
+    </div>
+
+    <div class="card card-flush" style="margin-bottom:22px">
+      <table class="dose-table">
+        <thead><tr><th colspan="2">Wegovy &middot; semaglutide, once weekly</th><th>Duration</th></tr></thead>
+        <tbody>
+          <tr><td>Weeks 1&ndash;4</td><td>0.25mg</td><td>4 weeks</td></tr>
+          <tr><td>Weeks 5&ndash;8</td><td>0.5mg</td><td>4 weeks</td></tr>
+          <tr><td>Weeks 9&ndash;12</td><td>1.0mg</td><td>4 weeks</td></tr>
+          <tr><td>Weeks 13&ndash;16</td><td>1.7mg</td><td>4 weeks</td></tr>
+          <tr><td>Week 17 onward</td><td>2.4mg</td><td>Maintenance</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card card-flush">
+      <table class="dose-table">
+        <thead><tr><th colspan="2">Mounjaro &middot; tirzepatide, once weekly</th><th>Duration</th></tr></thead>
+        <tbody>
+          <tr><td>Weeks 1&ndash;4</td><td>2.5mg</td><td>4 weeks</td></tr>
+          <tr><td>Week 5 onward</td><td>5mg</td><td>Maintenance dose, or step up further</td></tr>
+          <tr><td>If increasing</td><td>7.5mg, 10mg, 12.5mg, 15mg</td><td>At least 4 weeks at each step</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="src-line">Each strength is a separate pen, which is why the price changes as you move up. <a href="index.html#prices">Current prices for every strength</a>.</p>
+  </section>
+</div>
+
+<section class="section shell">
+  <div class="section-head">
+    <div class="kicker">Using the pen</div>
+    <h2>Storage, injecting, missed doses</h2>
+  </div>
+  <div class="card">
+    <div class="howto">
+      <div class="row"><div class="n">1</div><div><h3>Storage</h3><p>In the fridge between 2&deg;C and 8&deg;C. Do not freeze, and do not use a pen that has been frozen. Keep the cap on and out of reach of children. Check the expiry date on the pen.</p></div></div>
+      <div class="row"><div class="n">2</div><div><h3>When to inject</h3><p>Once a week, the same day each week, at any time of day, with or without food. If you need to change which day, the product information sets a minimum gap between doses. Check the leaflet or ask your pharmacist.</p></div></div>
+      <div class="row"><div class="n">3</div><div><h3>Where to inject</h3><p>Under the skin of the abdomen, thigh or upper arm. Rotate the site each week. Not into a vein or muscle.</p></div></div>
+      <div class="row"><div class="n">4</div><div><h3>A missed dose</h3><p>The CMI says to take it as soon as you remember if it has been only a few days, then continue on your usual day. If your next scheduled dose is close, skip the missed one rather than doubling up. The exact window differs between products, so check your leaflet.</p></div></div>
+      <div class="row"><div class="n">5</div><div><h3>Needles and sharing</h3><p>Never share a pen, even with a new needle. Used needles go in a sharps container. Your pharmacy can supply one and dispose of it.</p></div></div>
+      <div class="row"><div class="n">6</div><div><h3>Travelling</h3><p>Tell your doctor or pharmacist before you travel so you can plan cold storage. Some pharmacies charge a cold-chain handling fee on delivery for the same reason.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="band-stone">
+  <section class="section shell">
+    <div class="section-head">
+      <div class="kicker">Not for everyone</div>
+      <h2>When these medicines are avoided</h2>
+    </div>
+    <div class="card">
+      <p>The product information advises against use in pregnancy and breastfeeding: semaglutide passed into milk in animal studies and a risk to a breastfed child cannot be excluded. It should not be used by anyone who has had an allergic reaction to the active ingredient, and should not be combined with another GLP-1 medicine. Tell your prescriber about any other conditions or medicines, there are specific cautions around pancreatitis, gallbladder disease, diabetic eye disease and thyroid history that need a clinician's judgement.</p>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="shell">
+    <div class="fine">
+      <p>Sources: Medsafe <a href="https://www.medsafe.govt.nz/Consumers/CMI/w/wegovy.pdf">Consumer Medicine Information</a>, Medsafe <a href="https://www.medsafe.govt.nz/profs/datasheet/w/wegovyinjection.pdf">data sheet</a>, <a href="https://healthify.nz/medicines-a-z/w/wegovy">Healthify</a>. The leaflet in your pack is the current version.</p>
+      <p>glp.nz is not a substitute for a clinician and gives no medical advice. <a href="index.html">Back to prices</a> &middot; <a href="studies.html">Trials and evidence</a></p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

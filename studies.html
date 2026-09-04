@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GLP-1 trials and evidence, NZ, glp.nz</title>
+<meta name="description" content="What the trials found on Wegovy and Mounjaro, what independent reviews say, and what happens when you stop.">
+<link rel="canonical" href="https://glp.nz/studies.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="GLP-1 trials and evidence, NZ">
+<meta property="og:description" content="What the trials found, what independent reviews say, and what happens when you stop.">
+<meta property="og:url" content="https://glp.nz/studies.html">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+/* ---------- glp.nz design tokens ---------- */
+:root{
+--paper:#FAFAF8;--white:#fff;--stone:#F3F4F0;--line:#E5E7E2;
+--ink:#151A18;--slate:#42504B;--sage:#7C8A84;
+--teal:#1F5E56;--teal-dark:#17453F;--teal-soft:#EAF2F0;--teal-tint:#F4F8F7;
+--clay:#A8443A;--sand:#FBF3E2;
+--mint:#DCEBE7;
+--radius-card:14px;--radius-control:10px;
+--shadow-card:0 1px 2px rgba(21,26,24,.04),0 10px 30px -18px rgba(21,26,24,.16);
+--max:1100px;--gutter:36px;
+}
+*{box-sizing:border-box}
+html{font-size:16.5px;-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--slate);font-family:"DM Sans",system-ui,-apple-system,sans-serif;line-height:1.6;font-feature-settings:"tnum" 1}
+h1,h2,h3{color:var(--ink);font-weight:400;margin:0}
+p{margin:0;text-wrap:pretty}
+a{color:var(--teal);text-underline-offset:2px}
+a:hover{color:var(--teal-dark)}
+:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+.shell{max-width:var(--max);margin:0 auto;padding:0 var(--gutter)}
+
+/* ---------- nav ---------- */
+.nav{position:sticky;top:0;z-index:5;background:rgba(250,250,248,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav .shell{height:66px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.mark{font-weight:500;font-size:1.2rem;letter-spacing:-.012em;text-decoration:none;color:var(--ink)}
+.mark span{color:var(--teal)}
+.nav-right{display:flex;align-items:center;gap:32px}
+.nav-links{display:flex;gap:32px;font-size:.88rem}
+.nav-links a{color:var(--slate);text-decoration:none;transition:color 140ms cubic-bezier(.2,.6,.2,1)}
+.btn{display:inline-block;font-size:.88rem;font-weight:500;padding:12px 22px;border-radius:999px;text-decoration:none;border:1px solid transparent;cursor:pointer;font-family:inherit;transition:background 140ms cubic-bezier(.2,.6,.2,1),color 140ms cubic-bezier(.2,.6,.2,1)}
+.btn-primary{background:var(--teal);color:#fff}
+.btn-primary:hover{background:var(--teal-dark);color:#fff}
+.btn-secondary{color:var(--teal);border-color:var(--teal);background:transparent}
+.btn-secondary:hover{background:var(--teal-tint)}
+
+/* ---------- type ---------- */
+.kicker{font-size:.72rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+.kicker-muted{color:var(--sage)}
+.hero{padding:96px var(--gutter) 72px;text-align:center;display:grid;justify-items:center;gap:20px}
+.hero h1{font-size:clamp(2.35rem,4.4vw,3.15rem);line-height:1.08;letter-spacing:-.028em;max-width:26ch}
+.hero .lede{font-size:1.09rem;max-width:56ch}
+.hero-actions{display:flex;gap:12px;margin-top:8px;flex-wrap:wrap;justify-content:center}
+.section{padding:88px var(--gutter)}
+.section-head{text-align:center;max-width:58ch;margin:0 auto 40px;display:grid;justify-items:center;gap:12px}
+.section-head h2{font-size:2.06rem;line-height:1.16;letter-spacing:-.024em}
+
+/* ---------- bands ---------- */
+.band{background:var(--white);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.band-stone{background:var(--stone);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;padding:44px var(--gutter);text-align:center}
+.stat-value{font-size:2.42rem;color:var(--ink);letter-spacing:-.024em;line-height:1}
+.stat-label{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--sage);margin-top:12px}
+.stat-sub{font-size:.94rem;color:var(--sage);margin-top:4px}
+
+/* ---------- cards ---------- */
+.card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius-card);box-shadow:var(--shadow-card);padding:32px}
+.card-flush{padding:0;overflow:hidden}
+.card-accent{background:var(--teal);color:#fff;border-color:var(--teal)}
+
+/* ---------- tables ---------- */
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:620px}
+th{font-size:.7rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--sage);background:var(--stone);text-align:right;padding:18px 20px;border-bottom:1px solid var(--line);white-space:nowrap}
+th:first-child{text-align:left}
+td{padding:18px 20px;text-align:right;border-bottom:1px solid var(--line);font-size:1.06rem;color:var(--ink);white-space:nowrap}
+td:first-child{text-align:left;font-size:1rem;color:var(--slate);font-weight:500}
+tr:last-child td{border-bottom:0}
+td.best{background:var(--teal-soft);color:var(--teal);font-weight:500}
+td.na{color:var(--sage)}
+td a{color:inherit;text-decoration:none}
+td a:hover{text-decoration:underline}
+.oos{display:block;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--clay);margin-top:4px}
+.legend{font-size:.94rem;color:var(--sage);margin-top:16px;text-align:center}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;background:var(--teal-soft);border:1px solid var(--line);margin-right:7px}
+
+/* ---------- calculator ---------- */
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.field{margin-bottom:20px}
+.field:last-child{margin-bottom:0}
+.field label{display:block;font-size:.7rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--sage);margin-bottom:8px}
+.field .hint{font-size:.94rem;color:var(--sage);margin-top:8px}
+select,.money{width:100%;font:inherit;font-size:1rem;color:var(--ink);padding:13px 15px;border:1px solid var(--line);border-radius:var(--radius-control);background:var(--white)}
+select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--sage) 50%),linear-gradient(135deg,var(--sage) 50%,transparent 50%);background-position:calc(100% - 20px) 55%,calc(100% - 15px) 55%;background-size:5px 5px,5px 5px;background-repeat:no-repeat}
+.money{display:flex;align-items:center;gap:4px;padding:0 15px}
+.money span{color:var(--sage)}
+.money input{flex:1;font:inherit;font-size:1rem;color:var(--ink);border:0;background:transparent;padding:13px 0;outline:none;font-feature-settings:"tnum" 1;width:100%}
+.stack{display:grid;gap:8px}
+.total{font-size:3.4rem;line-height:1;letter-spacing:-.024em}
+.total small{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;opacity:.75;margin-left:12px}
+.card-accent dl{display:grid;grid-template-columns:1fr auto;gap:12px 20px;margin:32px 0 0;font-size:.94rem}
+.card-accent dt{opacity:.78}
+.card-accent dd{margin:0;text-align:right}
+.card-accent .foot{margin-top:24px;padding-top:16px;border-top:1px solid rgba(255,255,255,.28);font-size:.94rem;opacity:.92}
+.card-accent strong{font-weight:500}
+
+/* ---------- chart ---------- */
+.chart-controls{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+.chart-controls>div{width:190px}
+.chart-controls>div+div{width:150px}
+.chart-holder{height:320px}
+
+/* ---------- notice + footer ---------- */
+.notice{background:var(--sand);color:var(--ink);border-radius:var(--radius-control);padding:16px 20px;font-size:.94rem;max-width:74ch}
+.scope{display:grid;justify-items:center;gap:20px}
+footer{border-top:1px solid var(--line)}
+footer .shell{padding:56px var(--gutter) 72px}
+.fine{max-width:74ch;margin:0 auto;text-align:center;color:var(--sage);font-size:.82rem;display:grid;gap:12px}
+
+@media(max-width:820px){
+.calc{grid-template-columns:1fr}
+.stats{grid-template-columns:1fr;gap:32px}
+.nav-links{display:none}
+.section{padding:64px var(--gutter)}
+.hero{padding:64px var(--gutter) 48px}
+}
+
+.study{border-bottom:1px solid var(--line);padding:28px 0}
+.study:first-child{padding-top:4px}
+.study:last-child{border-bottom:0;padding-bottom:4px}
+.study-top{display:flex;justify-content:space-between;gap:10px 28px;align-items:baseline;flex-wrap:wrap}
+.study h3{font-size:1.22rem;letter-spacing:-.016em;line-height:1.25;flex:1 1 300px}
+.study .meta{font-size:.82rem;color:var(--sage);flex:0 1 auto}
+.study .who{display:inline-block;font-size:.72rem;letter-spacing:.07em;text-transform:uppercase;border-radius:3px;padding:2px 7px;margin-bottom:10px}
+.study .who.ind{background:var(--mint);color:var(--teal)}
+.study .who.mfr{background:#F3EFE6;color:#8A6A2F}
+.study p{margin-top:2px;max-width:74ch}
+.study .finding{margin-top:14px;font-size:1.02rem;color:var(--ink);max-width:76ch}
+.study .src{margin-top:14px;font-size:.86rem;color:var(--sage);max-width:76ch}
+.study .src a{color:var(--teal);text-decoration:none;border-bottom:1px solid var(--teal-soft)}
+.group{margin-bottom:6px}
+[hidden]{display:none !important}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="shell">
+    <a class="mark" href="index.html">glp<span>.nz</span></a>
+    <div class="nav-right">
+      <div class="nav-links">
+        <a href="index.html#prices">Prices</a>
+        <a href="side-effects.html">Side effects</a>
+        <a href="ozempic.html">Ozempic</a>
+        <a href="studies.html">Studies</a>
+      </div>
+      <a class="btn btn-primary" href="index.html#prices">Today's prices</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero" id="top">
+  <h1>What the evidence says.</h1>
+  <p class="lede">Each study, what it measured, what it found, and where to read it. Every entry is marked with who paid for it.</p>
+</section>
+
+<section class="section shell">
+  <div class="section-head group">
+    <div class="kicker">Effectiveness</div>
+    <h2>How much weight comes off</h2>
+  </div>
+  <div class="card">
+      <div class="study">
+        <div class="who ind">Independent</div>
+        <div class="study-top"><h3>Liraglutide, semaglutide and tirzepatide compared</h3><div class="meta">International Journal of Obesity, 2026 &middot; trials of 52 weeks or longer</div></div>
+        <p>A network meta-analysis of liraglutide, semaglutide and tirzepatide at approved weight-management doses, run outside the manufacturers.</p>
+        <div class="finding">All three produce clinically meaningful weight loss against placebo over a year or more. Semaglutide 7.2mg ranked consistently above 2.4mg, but the average incremental benefit was only 2 to 3 percentage points, with few statistically significant differences between doses. The authors weigh that against tolerability and patient preference.</div>
+        <div class="src">Authors declare no conflict of interest. <a href="https://pubmed.ncbi.nlm.nih.gov/42560457/" rel="noopener" target="_blank">PubMed</a></div>
+      </div>
+      <div class="study">
+        <div class="who mfr">Manufacturer funded</div>
+        <div class="study-top"><h3>STEP 1, once-weekly semaglutide 2.4mg</h3><div class="meta">NEJM, 2021 &middot; 1,961 participants &middot; 68 weeks</div></div>
+        <p>Adults with a BMI of 30 or above, or 27 with a weight-related condition and no diabetes, randomised to weekly semaglutide or placebo alongside lifestyle counselling.</p>
+        <div class="finding">Body weight fell 14.9% on semaglutide against 2.4% on placebo. 86.4% of the semaglutide group lost at least 5% of their weight, against 31.5% on placebo.</div>
+        <div class="src"><a href="https://www.nejm.org/doi/full/10.1056/NEJMoa2032183" rel="noopener" target="_blank">NEJM</a> &nbsp;&middot;&nbsp; <a href="https://www.wikijournalclub.org/wiki/STEP_1" rel="noopener" target="_blank">WikiJournalClub summary</a></div>
+      </div>
+      <div class="study">
+        <div class="who mfr">Manufacturer funded</div>
+        <div class="study-top"><h3>SURMOUNT-1, tirzepatide in obesity</h3><div class="meta">NEJM, 2022 &middot; 2,539 participants &middot; 72 weeks</div></div>
+        <p>Adults with obesity, or overweight with a related condition, randomised to 5mg, 10mg or 15mg weekly tirzepatide or placebo.</p>
+        <div class="finding">Average reduction was 16.0% at 5mg, 21.4% at 10mg and 22.5% at 15mg, against 2.4% on placebo. Around a third on the higher doses lost at least 25% of their body weight. Fat mass fell roughly three times more than lean mass.</div>
+        <div class="src"><a href="https://www.nejm.org/doi/full/10.1056/NEJMoa2206038" rel="noopener" target="_blank">NEJM</a> &nbsp;&middot;&nbsp; <a href="https://pubmed.ncbi.nlm.nih.gov/35658024/" rel="noopener" target="_blank">PubMed</a> &nbsp;&middot;&nbsp; <a href="https://investor.lilly.com/news-releases/news-release-details/lillys-surmount-1-results-published-new-england-journal-medicine" rel="noopener" target="_blank">Lilly release</a></div>
+      </div>
+  </div>
+</section>
+
+<div class="band-stone">
+  <section class="section shell">
+    <div class="section-head group">
+      <div class="kicker">Comparison</div>
+      <h2>Wegovy or Mounjaro</h2>
+    </div>
+    <div class="card">
+      <div class="study">
+        <div class="who ind">Independent</div>
+        <div class="study-top"><h3>Tirzepatide versus semaglutide, network meta-analysis</h3><div class="meta">Journal of Diabetes, 2026 &middot; network meta-analysis</div></div>
+        <p>A network meta-analysis comparing tirzepatide and semaglutide across the trial literature rather than relying on the single head-to-head study.</p>
+        <div class="finding">Tirzepatide ranked ahead of semaglutide, consistent with SURMOUNT-5. The authors caution that SURMOUNT-5, while an important advance, is one trial in one population, which limits how far it generalises.</div>
+        <div class="src"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12887578/" rel="noopener" target="_blank">Journal of Diabetes</a></div>
+      </div>
+      <div class="study">
+        <div class="who ind">Independent</div>
+        <div class="study-top"><h3>Tirzepatide versus semaglutide, direct comparative studies</h3><div class="meta">Cureus, 2025 &middot; 28,980 participants &middot; 7 studies</div></div>
+        <p>A systematic review restricted to studies comparing tirzepatide and semaglutide head to head, covering five observational studies and two randomised trials, followed for six to twelve months.</p>
+        <div class="finding">Tirzepatide produced greater weight reduction across the pooled comparisons, matching both the randomised evidence and what clinicians report seeing.</div>
+        <div class="src"><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12263181/" rel="noopener" target="_blank">PubMed Central</a></div>
+      </div>
+      <div class="study">
+        <div class="who mfr">Manufacturer funded</div>
+        <div class="study-top"><h3>SURMOUNT-5, tirzepatide versus semaglutide</h3><div class="meta">NEJM, 2025 &middot; 751 participants &middot; 72 weeks</div></div>
+        <p>The first direct comparison: adults with obesity and no type 2 diabetes, on the maximum tolerated dose of either tirzepatide (10 or 15mg) or semaglutide (1.7 or 2.4mg).</p>
+        <div class="finding">Tirzepatide produced greater sustained weight reduction over 72 weeks. Researchers attribute the gap to tirzepatide acting on GIP receptors as well as GLP-1 receptors, which are distributed differently in the brain regions governing food intake.</div>
+        <div class="src"><a href="https://www.nejm.org/doi/full/10.1056/NEJMoa2416394" rel="noopener" target="_blank">NEJM</a> &nbsp;&middot;&nbsp; <a href="https://www.appliedclinicaltrialsonline.com/view/tirzepatide-weight-loss-semaglutide-surmount-trial" rel="noopener" target="_blank">Applied Clinical Trials</a></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<section class="section shell">
+  <div class="section-head group">
+    <div class="kicker">After treatment</div>
+    <h2>What happens when you stop</h2>
+    <p>The registration trials measured people while they were taking the medicine. This is what follows, and the trial evidence and the real-world evidence do not fully agree.</p>
+  </div>
+  <div class="card">
+      <div class="study">
+        <div class="who ind">Independent</div>
+        <div class="study-top"><h3>Weight regain after cessation of weight-management medication</h3><div class="meta">The BMJ, 2026 &middot; 9,341 adults &middot; 37 studies</div></div>
+        <p>An Oxford team systematically reviewed every study tracking adults who stopped a weight-management medicine, from older drugs like orlistat through to semaglutide and tirzepatide. Average time on treatment was 39 weeks, with 32 weeks of follow-up after stopping.</p>
+        <div class="finding">Weight rose by an average of 0.4kg a month, roughly four times faster than after a behavioural weight-loss programme, and independent of how much had been lost. At that rate people return to their starting weight in about 1.7 years, and cardiometabolic benefits are lost with it. Co-author Susan Jebb framed obesity as a chronic relapsing condition where some form of continued treatment is needed to hold the gains.</div>
+        <div class="src">Funded by the NIHR Oxford Biomedical Research Centre; the lead author reports partial funding from the Novo Nordisk Foundation. <a href="https://www.ox.ac.uk/news/2026-01-08-new-study-finds-stopping-weight-loss-drugs-linked-faster-regain-ending-diet" rel="noopener" target="_blank">Oxford</a> &nbsp;&middot;&nbsp; <a href="https://www.medscape.com/viewarticle/weight-regain-health-benefit-loss-rapid-when-glp-1s-stopped-2026a10000kr" rel="noopener" target="_blank">Medscape</a> &nbsp;&middot;&nbsp; <a href="https://www.tctmd.com/news/weight-regained-within-18-months-stopping-glp-1-drugs" rel="noopener" target="_blank">TCTMD</a> &nbsp;&middot;&nbsp; <a href="https://www.sciencemediacentre.org/expert-reaction-to-systematic-review-and-meta-analysis-looking-at-weight-regain-and-cardiometabolic-markers-after-stopping-obesity-drugs/" rel="noopener" target="_blank">Expert reaction</a></div>
+      </div>
+      <div class="study">
+        <div class="who ind">Independent</div>
+        <div class="study-top"><h3>Trajectory of weight regain after GLP-1 cessation</h3><div class="meta">eClinicalMedicine (Lancet), 2026 &middot; 3,236 participants &middot; 52 weeks after stopping</div></div>
+        <p>A meta-regression modelling the shape of regain rather than a monthly average, assuming rapid early regain that progressively slows.</p>
+        <div class="finding">Modelled maximum regain was 75.3% of the weight lost, with a half-life of about 23 weeks. Independent commentators note the one-year estimate is supported by trial follow-up, but the 75% plateau is extrapolated beyond the observed data, so the long-term figure carries real uncertainty. The authors point out that prescribing guidance largely ignores the issue: NICE caps semaglutide at two years for weight loss but sets no limit for tirzepatide.</div>
+        <div class="src"><a href="https://www.thelancet.com/journals/eclinm/article/PIIS2589-5370(26)00043-X/fulltext" rel="noopener" target="_blank">eClinicalMedicine</a> &nbsp;&middot;&nbsp; <a href="https://www.sciencemediacentre.org/expert-reaction-to-meta-analysis-and-modelling-study-on-weight-regain-after-stopping-glp-1-receptor-agonists/" rel="noopener" target="_blank">Expert reaction, and how it differs from the BMJ paper</a></div>
+      </div>
+      <div class="study">
+        <div class="who ind">Independent</div>
+        <div class="study-top"><h3>Discontinuation and body habitus, by agent</h3><div class="meta">Obesity Reviews, 2025 &middot; systematic review and meta-analysis</div></div>
+        <p>Pooled weight change after stopping, separated by which medicine people had been on.</p>
+        <div class="finding">Mean regain was 2.20kg after liraglutide and 9.69kg after semaglutide or tirzepatide, proportional to the amount originally lost. The medicines that work best have the most to give back.</div>
+        <div class="src"><a href="https://onlinelibrary.wiley.com/doi/10.1111/obr.13929" rel="noopener" target="_blank">Obesity Reviews</a></div>
+      </div>
+      <div class="study">
+        <div class="who ind">Independent</div>
+        <div class="study-top"><h3>Obesity treatments and weight change after discontinuation</h3><div class="meta">Diabetes, Obesity and Metabolism, 2026 &middot; 7,977 patients &middot; 1 year after stopping</div></div>
+        <p>A Cleveland Clinic study of people who started semaglutide or tirzepatide and stopped within three to twelve months, following what they did next. Trials measure controlled withdrawal; this captures people restarting, switching, or changing approach.</p>
+        <div class="finding">Average weight change a year after stopping was small. Among those treated for obesity, 55% gained while 45% held or kept losing; in the diabetes group 44% gained. Many restarted the same medicine or moved to another treatment. The same group had earlier found the dominant reason for stopping was cost, ahead of side effects.</div>
+        <div class="src"><a href="https://pubmed.ncbi.nlm.nih.gov/41816857/" rel="noopener" target="_blank">PubMed</a> &nbsp;&middot;&nbsp; <a href="https://newsroom.clevelandclinic.org/2026/03/12/what-happens-when-patients-stop-taking-glp-1-drugs-new-cleveland-clinic-study-reveals-real-world-insights" rel="noopener" target="_blank">Cleveland Clinic</a></div>
+      </div>
+      <div class="study">
+        <div class="who ind">Independent</div>
+        <div class="study-top"><h3>Weight outcomes 24 months after GLP-1 cessation</h3><div class="meta">Epic Research, 2025 &middot; 188,722 patients &middot; 24 months after stopping</div></div>
+        <p>An analysis of electronic health records covering people who took a GLP-1 for at least 90 days, lost at least five pounds, then stopped. Published by Epic Research, a health-data organisation analysing its own dataset, and not peer reviewed.</p>
+        <div class="finding">At 24 months, 56% of semaglutide, 55% of tirzepatide and 52% of liraglutide patients had kept the weight off or lost more. Complete regain occurred in 23%, 21% and 27% respectively. Trajectories mostly settled after the first year.</div>
+        <div class="src"><a href="https://www.epicresearch.org/articles/two-years-after-stopping-glp-1s-most-patients-sustain-at-least-some-weight-loss/" rel="noopener" target="_blank">Epic Research</a></div>
+      </div>
+  </div>
+</section>
+
+<div class="band-stone">
+  <section class="section shell">
+    <div class="section-head group">
+      <div class="kicker">Other effects</div>
+      <h2>Beyond weight</h2>
+    </div>
+    <div class="card">
+      <div class="study">
+        <div class="who mfr">Manufacturer funded</div>
+        <div class="study-top"><h3>SELECT, cardiovascular outcomes without diabetes</h3><div class="meta">NEJM, 2023 &middot; 17,604 participants &middot; mean 40 months</div></div>
+        <p>Adults 45 and over with existing cardiovascular disease and a BMI of 27 or above, but no diabetes. The question was whether semaglutide prevents cardiovascular events, not whether it reduces weight.</p>
+        <div class="finding">Major cardiovascular events occurred in 6.5% on semaglutide against 8.0% on placebo, a 20% relative reduction. Weight loss continued for 65 weeks and held for up to four years, averaging 10.2% at 208 weeks. Adverse events led 16.6% to stop treatment, against 8.2% on placebo.</div>
+        <div class="src"><a href="https://www.nejm.org/doi/full/10.1056/NEJMoa2307563" rel="noopener" target="_blank">NEJM</a> &nbsp;&middot;&nbsp; <a href="https://pubmed.ncbi.nlm.nih.gov/37952131/" rel="noopener" target="_blank">PubMed</a> &nbsp;&middot;&nbsp; <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11271387/" rel="noopener" target="_blank">Long-term weight analysis</a></div>
+      </div>
+      <div class="study">
+        <div class="who mfr">Manufacturer funded</div>
+        <div class="study-top"><h3>SURMOUNT-1 extension, progression to type 2 diabetes</h3><div class="meta">NEJM, 2024 &middot; 1,032 with prediabetes &middot; 176 weeks</div></div>
+        <p>The prediabetic participants from SURMOUNT-1 continued on treatment for a further two years, testing whether weight loss held and whether diabetes was delayed.</p>
+        <div class="finding">Weight reduction was sustained over three years and the risk of progressing to type 2 diabetes was markedly lower than on placebo.</div>
+        <div class="src"><a href="https://www.nejm.org/doi/abs/10.1056/NEJMoa2410819" rel="noopener" target="_blank">NEJM</a></div>
+      </div>
+      <div class="study">
+        <div class="who ind">Independent</div>
+        <div class="study-top"><h3>Late-life semaglutide in female mice</h3><div class="meta">Nature, 2026 &middot; mice &middot; from 20 months to end of life</div></div>
+        <p>Healthy female mice aged 20 months, roughly equivalent to a 60-year-old human, were given semaglutide until the end of life and compared with untreated mice and with a group fed 24% less to match the appetite suppression.</p>
+        <div class="finding">Median lifespan was 834 days against 742 in the control group, about 12% longer. Treated mice explored more, remembered a maze route better and held blood sugar more steadily. Against the calorie-restricted group, longevity outcomes were similar, but treated mice did better on spatial memory and glucose control, and their metabolic rate stayed near normal while the dieting mice slowed.</div>
+        <div class="src">Funded by the US National Institute on Aging. The University of California has filed a patent application covering GLP-1 receptor agonists for healthy ageing. A mouse study: nothing about human lifespan follows from it. <a href="https://www.nature.com/articles/s41586-026-10940-7" rel="noopener" target="_blank">Nature</a> &nbsp;&middot;&nbsp; <a href="https://www.nature.com/articles/d41586-026-02757-1" rel="noopener" target="_blank">Nature News</a> &nbsp;&middot;&nbsp; <a href="https://www.nih.gov/news-events/news-releases/glp-1-treatment-late-life-extends-lifespan-animal-model" rel="noopener" target="_blank">NIH</a> &nbsp;&middot;&nbsp; <a href="https://mbn.berkeley.edu/news/glp-1-treatment-extends-lifespan-older-healthy-mice" rel="noopener" target="_blank">UC Berkeley</a> &nbsp;&middot;&nbsp; <a href="https://cen.acs.org/biological-chemistry/semaglutide-mouse-longevity/104/web/2026/09" rel="noopener" target="_blank">C&amp;EN</a> &nbsp;&middot;&nbsp; <a href="https://www.scientificamerican.com/article/glp-1-weight-loss-medication-could-slow-aging-and-extend-lifespan/" rel="noopener" target="_blank">Scientific American</a></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<section class="section shell">
+  <div class="section-head group">
+    <div class="kicker">Emerging research</div>
+    <h2>Cravings and reward</h2>
+    <p>People taking these medicines often report that other cravings quieten too. The mechanism is plausible and well studied in animals, but human evidence is early: two randomised trials on alcohol, and observational data everywhere else. Nothing is approved for any of this.</p>
+  </div>
+  <div class="card">
+      <div class="study">
+        <div class="who ind">Independent</div>
+        <div class="study-top"><h3>Once-weekly semaglutide in alcohol use disorder</h3><div class="meta">JAMA Psychiatry, 2025 &middot; 48 participants &middot; 9 weeks</div></div>
+        <p>A phase 2 randomised, double-blind trial at an academic medical centre, using low doses of 0.25mg and 0.5mg weekly. Participants had alcohol use disorder but were not seeking treatment for it. The primary measure was how much they drank in a laboratory setting before and after treatment.</p>
+        <div class="finding">Semaglutide reduced alcohol craving, the amount consumed and the frequency of heavy drinking days against placebo. In the laboratory, the semaglutide group drank less by both grams of alcohol and breath alcohol concentration. Reductions in cigarettes per day were also observed. This is a small, short, early-phase trial, and the participants were not trying to cut down.</div>
+        <div class="src"><a href="https://pubmed.ncbi.nlm.nih.gov/39937469/" rel="noopener" target="_blank">PubMed</a> &nbsp;&middot;&nbsp; <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11822619/" rel="noopener" target="_blank">Full text</a> &nbsp;&middot;&nbsp; <a href="https://news.unchealthcare.org/2025/02/semaglutide-shows-promise-in-reducing-cravings-for-alcohol-heavy-drinking/" rel="noopener" target="_blank">UNC Health</a> &nbsp;&middot;&nbsp; <a href="https://bbrfoundation.org/content/glp-1-drug-semaglutide-ozempic-wegovy-reduced-heavy-drinking-craving-adults-alcohol-use" rel="noopener" target="_blank">Brain &amp; Behavior Research Foundation</a></div>
+      </div>
+      <div class="study">
+        <div class="who ind">Independent</div>
+        <div class="study-top"><h3>SEMALCO, semaglutide in alcohol use disorder with obesity</h3><div class="meta">The Lancet, 2026 &middot; randomised, double-blind, placebo-controlled</div></div>
+        <p>A Danish trial of once-weekly semaglutide in treatment-seeking patients who had both alcohol use disorder and obesity, addressing the main limitation of the earlier trial.</p>
+        <div class="finding">Semaglutide showed what the authors describe as robust therapeutic effects in this group, supporting the earlier preclinical and clinical signals. The population had comorbid obesity, so how far it extends to people with alcohol use disorder alone is not settled.</div>
+        <div class="src"><a href="https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(26)00305-3/fulltext" rel="noopener" target="_blank">The Lancet</a></div>
+      </div>
+      <div class="study">
+        <div class="who ind">Independent</div>
+        <div class="study-top"><h3>GLP-1 agonists in substance use disorders</h3><div class="meta">Systematic review, 2026 &middot; PRISMA, PROSPERO registered</div></div>
+        <p>A systematic review of preclinical and early clinical work on GLP-1 agonists across alcohol, nicotine, cocaine and opioid use disorders.</p>
+        <div class="finding">GLP-1 receptors sit in the ventral tegmental area and nucleus accumbens, the brain's reward circuitry. In animals, GLP-1 agonists blunt the dopamine surge triggered by alcohol, nicotine, cocaine and amphetamine, and reduce both self-administration and relapse-like behaviour. That gives a coherent mechanism for why one medicine might affect several unrelated cravings at once. Human variants of the GLP-1 receptor gene are associated with alcohol use disorder.</div>
+        <div class="src"><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12808432/" rel="noopener" target="_blank">Systematic review</a> &nbsp;&middot;&nbsp; <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12155186/" rel="noopener" target="_blank">Translational review</a></div>
+      </div>
+      <div class="study">
+        <div class="who ind">Independent</div>
+        <div class="study-top"><h3>State of the evidence in addiction medicine</h3><div class="meta">Medscape, 2026 &middot; clinical review</div></div>
+        <p>A survey of where the field stands, canvassing addiction specialists rather than reporting a single result.</p>
+        <div class="finding">Most of the evidence is still animal studies, observational research and patient reports. Large retrospective analyses associate GLP-1 use with lower rates of overdose and new substance use disorders, but association is not causation, and observational data on people already taking these medicines carries obvious confounding. Not one regulator has approved a GLP-1 for any addiction indication. Reports of effects on gambling and compulsive shopping come largely from anecdote and social media analysis, not trials.</div>
+        <div class="src"><a href="https://www.medscape.com/viewarticle/glp-1s-addiction-are-we-there-yet-2026a1000mi4" rel="noopener" target="_blank">Medscape</a> &nbsp;&middot;&nbsp; <a href="https://health.usnews.com/best-diet/medication/articles/can-glp-1s-help-with-addiction" rel="noopener" target="_blank">US News</a></div>
+      </div>
+  </div>
+</section>
+
+<section class="section shell">
+  <div class="section-head group">
+    <div class="kicker">New Zealand</div>
+    <h2>Approval and funding</h2>
+  </div>
+  <div class="card">
+      <div class="study">
+        <div class="who ind">Independent</div>
+        <div class="study-top"><h3>Medsafe approval and Pharmac funding status</h3><div class="meta">Medsafe and Pharmac &middot; ongoing</div></div>
+        <p>Medsafe holds the approved data sheets and consumer information for every product sold here and reviews emerging safety signals. Pharmac decides what is publicly funded.</p>
+        <div class="finding">Wegovy, Mounjaro and Saxenda are approved for weight management but not funded, so patients pay privately. Funded GLP-1s for type 2 diabetes (Trulicity, Victoza) are available under Special Authority. Pharmac has Wegovy on its Options for Investment list following a high-priority recommendation from its Obesity Treatment Advisory Group.</div>
+        <div class="src"><a href="https://www.medsafe.govt.nz/Medicines/infoSearch.asp" rel="noopener" target="_blank">Medsafe data sheets</a> &nbsp;&middot;&nbsp; <a href="https://www.pharmac.govt.nz/news-and-resources/news/semaglutide-wegovy-ozempic" rel="noopener" target="_blank">Pharmac</a> &nbsp;&middot;&nbsp; <a href="https://t2dm.nzssd.org.nz/Special-Authority.html" rel="noopener" target="_blank">NZSSD</a></div>
+      </div>
+  </div>
+</section>
+
+<footer>
+  <div class="shell">
+    <div class="fine">
+      <p>Trial results are averages across a study population and say nothing about what any individual will experience. Entries marked as manufacturer funded were paid for by the company selling the medicine, which is normal for phase 3 registration trials and worth knowing when reading them.</p>
+      <p>glp.nz is not a substitute for a clinician and gives no medical advice. Data sheets and consumer medicine information are on <a href="https://www.medsafe.govt.nz">Medsafe</a>. <a href="index.html">Back to prices</a></p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
