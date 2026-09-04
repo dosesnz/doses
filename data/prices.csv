@@ -116,3 +116,42 @@ date,retailer,drug,strength,price_nzd,available,source_url,note
 2026-09-03T20:22:29Z,Zoom Pharmacy,Contrave,"8mg/90mg, 112 pack",209.49,true,https://zoompharmacy.co.nz/shop/contrave-naltrexone-bupropion-hydrochloride-8mg-90mg-tablets-112-pack/,
 2026-09-03T20:22:32Z,Zoom Pharmacy,Duromine,"30mg, 30 pack",96.99,true,https://zoompharmacy.co.nz/shop/duromine-30mg-capsules-30-pack/,
 2026-09-03T20:22:32Z,Zoom Pharmacy,Duromine,"15mg, 30 pack",79.99,true,https://zoompharmacy.co.nz/shop/duromine-15mg-capsules-30-pack/,
+2026-09-04T20:22:07Z,Chemist Warehouse,Mounjaro,2.5mg,429.99,,https://www.chemistwarehouse.co.nz/buy/165180/mounjaro-2-5mg-kwikpen,non-subsidised anchor
+2026-09-04T20:22:09Z,Chemist Warehouse,Mounjaro,5mg,499.99,,https://www.chemistwarehouse.co.nz/buy/165181/mounjaro-5mg-kwikpen,non-subsidised anchor
+2026-09-04T20:22:12Z,Chemist Warehouse,Mounjaro,7.5mg,689.99,,https://www.chemistwarehouse.co.nz/buy/165182/mounjaro-7-5mg-kwikpen,non-subsidised anchor
+2026-09-04T20:22:15Z,Chemist Warehouse,Mounjaro,10mg,689.99,,https://www.chemistwarehouse.co.nz/buy/165183/mounjaro-10mg-kwikpen,non-subsidised anchor
+2026-09-04T20:22:19Z,Chemist Warehouse,Mounjaro,12.5mg,874.99,,https://www.chemistwarehouse.co.nz/buy/165184/mounjaro-12-5mg-kwikpen,non-subsidised anchor
+2026-09-04T20:22:22Z,Chemist Warehouse,Mounjaro,15mg,874.99,,https://www.chemistwarehouse.co.nz/buy/165217/mounjaro-15mg-kwikpen,non-subsidised anchor
+2026-09-04T20:22:24Z,Chemist Warehouse,Wegovy,0.25mg,364.99,,https://www.chemistwarehouse.co.nz/buy/156879/wegovy-0-25mg-flexpen,non-subsidised anchor
+2026-09-04T20:22:27Z,Chemist Warehouse,Wegovy,0.5mg,384.99,,https://www.chemistwarehouse.co.nz/buy/156880/wegovy-0-5mg-flexpen,non-subsidised anchor
+2026-09-04T20:22:29Z,Chemist Warehouse,Wegovy,1.0mg,404.99,,https://www.chemistwarehouse.co.nz/buy/156881/wegovy-1mg-flexpen,non-subsidised anchor
+2026-09-04T20:22:32Z,Chemist Warehouse,Wegovy,1.7mg,449.99,,https://www.chemistwarehouse.co.nz/buy/156882/wegovy-1-7mg-flexpen,non-subsidised anchor
+2026-09-04T20:22:36Z,Chemist Warehouse,Wegovy,2.4mg,469.99,,https://www.chemistwarehouse.co.nz/buy/156883/wegovy-2-4mg-flexpen,non-subsidised anchor
+2026-09-04T20:22:38Z,Bargain Chemist,Wegovy,2.4mg,469.99,,https://www.bargainchemist.co.nz/products/wegovy-24-mg-flextouch-96mg3ml?_pos=1&_psq=wegovy&_psid=c8e2c7bd3&_ss=e,
+2026-09-04T20:22:38Z,Bargain Chemist,Wegovy,1.7mg,449.99,,https://www.bargainchemist.co.nz/products/wegovy-17-mg-flextouch-68mg3ml?_pos=2&_psq=wegovy&_psid=c8e2c7bd3&_ss=e,
+2026-09-04T20:22:38Z,Bargain Chemist,Wegovy,0.25mg,364.99,,https://www.bargainchemist.co.nz/products/wegovy-025-mg-flextouch-1mg15ml?_pos=3&_psq=wegovy&_psid=c8e2c7bd3&_ss=e,
+2026-09-04T20:22:38Z,Bargain Chemist,Wegovy,1.0mg,409.99,,https://www.bargainchemist.co.nz/products/wegovy-1-mg-flextouch-4mg3ml?_pos=4&_psq=wegovy&_psid=c8e2c7bd3&_ss=e,
+2026-09-04T20:22:38Z,Bargain Chemist,Wegovy,0.5mg,389.99,,https://www.bargainchemist.co.nz/products/wegovy-05-mg-flextouch-2mg15ml?_pos=5&_psq=wegovy&_psid=c8e2c7bd3&_ss=e,
+2026-09-04T20:22:41Z,Bargain Chemist,Mounjaro,7.5mg,688.99,,https://www.bargainchemist.co.nz/products/mounjaro-7-5mg-kwikpen?_pos=1&_psq=mounjaro&_psid=bdbb77593&_ss=e,
+2026-09-04T20:22:41Z,Bargain Chemist,Mounjaro,2.5mg,429.99,,https://www.bargainchemist.co.nz/products/mounjaro-2-5mg-kwikpen?_pos=2&_psq=mounjaro&_psid=bdbb77593&_ss=e,
+2026-09-04T20:22:41Z,Bargain Chemist,Mounjaro,10mg,689.99,,https://www.bargainchemist.co.nz/products/mounjaro-10mg-kwikpen?_pos=3&_psq=mounjaro&_psid=bdbb77593&_ss=e,
+2026-09-04T20:22:41Z,Bargain Chemist,Mounjaro,15mg,874.99,,https://www.bargainchemist.co.nz/products/mounjaro-15mg-kwikpen?_pos=4&_psq=mounjaro&_psid=bdbb77593&_ss=e,
+2026-09-04T20:22:41Z,Bargain Chemist,Mounjaro,5mg,499.99,,https://www.bargainchemist.co.nz/products/mounjaro-5mg-kwikpen?_pos=5&_psq=mounjaro&_psid=bdbb77593&_ss=e,
+2026-09-04T20:22:41Z,Bargain Chemist,Mounjaro,12.5mg,874.99,,https://www.bargainchemist.co.nz/products/mounjaro-12-5mg-kwikpen?_pos=6&_psq=mounjaro&_psid=bdbb77593&_ss=e,
+2026-09-04T20:22:46Z,PillDrop,Wegovy,0.25mg,365.00,,https://pilldrop.co.nz/services/wegovy/,
+2026-09-04T20:22:46Z,PillDrop,Wegovy,0.5mg,385.00,,https://pilldrop.co.nz/services/wegovy/,
+2026-09-04T20:22:46Z,PillDrop,Wegovy,1.0mg,405.00,,https://pilldrop.co.nz/services/wegovy/,
+2026-09-04T20:22:46Z,PillDrop,Wegovy,1.7mg,450.00,,https://pilldrop.co.nz/services/wegovy/,
+2026-09-04T20:22:46Z,PillDrop,Wegovy,2.4mg,470.00,,https://pilldrop.co.nz/services/wegovy/,
+2026-09-04T20:22:49Z,PillDrop,Mounjaro,2.5mg,430.00,,https://pilldrop.co.nz/services/mounjaro/,
+2026-09-04T20:22:49Z,PillDrop,Mounjaro,5mg,500.00,,https://pilldrop.co.nz/services/mounjaro/,
+2026-09-04T20:22:49Z,PillDrop,Mounjaro,7.5mg,690.00,,https://pilldrop.co.nz/services/mounjaro/,
+2026-09-04T20:22:49Z,PillDrop,Mounjaro,10mg,690.00,,https://pilldrop.co.nz/services/mounjaro/,
+2026-09-04T20:22:49Z,PillDrop,Mounjaro,12.5mg,875.00,,https://pilldrop.co.nz/services/mounjaro/,
+2026-09-04T20:22:49Z,PillDrop,Mounjaro,15mg,875.00,,https://pilldrop.co.nz/services/mounjaro/,
+2026-09-04T20:22:52Z,Zoom Pharmacy,Saxenda,3 x 15ml,1433.49,true,https://zoompharmacy.co.nz/shop/saxenda-liraglutide-3x15ml-injection/,
+2026-09-04T20:22:52Z,Zoom Pharmacy,Saxenda,2 x 15ml,956.49,true,https://zoompharmacy.co.nz/shop/saxenda-liraglutide-2x15ml-injection/,
+2026-09-04T20:22:52Z,Zoom Pharmacy,Saxenda,1 x 15ml,479.49,true,https://zoompharmacy.co.nz/shop/saxenda-liraglutide-15ml-injection/,
+2026-09-04T20:22:55Z,Zoom Pharmacy,Contrave,"8mg/90mg, 112 pack",209.49,true,https://zoompharmacy.co.nz/shop/contrave-naltrexone-bupropion-hydrochloride-8mg-90mg-tablets-112-pack/,
+2026-09-04T20:23:03Z,Zoom Pharmacy,Duromine,"30mg, 30 pack",96.99,true,https://zoompharmacy.co.nz/shop/duromine-30mg-capsules-30-pack/,
+2026-09-04T20:23:03Z,Zoom Pharmacy,Duromine,"15mg, 30 pack",79.99,true,https://zoompharmacy.co.nz/shop/duromine-15mg-capsules-30-pack/,
