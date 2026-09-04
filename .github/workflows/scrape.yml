@@ -1,6 +1,10 @@
 # .github/workflows/scrape.yml
-# v2: pulls before pushing, so a commit made while the job is running no longer
-#     causes "! [rejected] main -> main (fetch first)".
+#
+# v3: acts on data/events.json written by the scraper.
+#     Price moves of 1.5%+ and newly appeared products send an email.
+#     A Pharmac funding change opens an issue instead: announcing that wrongly
+#     is worse than announcing it late, so a person confirms before it goes out.
+# v2: pull before push so a commit made mid-run does not reject.
 
 name: scrape-glp1-prices
 
@@ -11,6 +15,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
 
 concurrency:
   group: scrape
@@ -30,18 +35,15 @@ jobs:
         run: pip install requests beautifulsoup4
 
       - name: Run scraper
-        run: python glp1_scraper_v12.py
+        run: python glp1_scraper_v13.py
 
       - name: Commit results
         run: |
           git config user.name  "glp1-bot"
           git config user.email "glp1-bot@users.noreply.github.com"
-          git add data/prices.csv
+          git add data/prices.csv data/events.json data/known_products.json
           git diff --cached --quiet && echo "no changes" && exit 0
           git commit -m "prices $(date -u +%F)"
-          # Someone may have committed while this job ran. Rebase our single
-          # commit on top of whatever is on main now, then push. Retry a couple
-          # of times in case it happens again mid-push.
           for i in 1 2 3; do
             git pull --rebase origin main && git push origin HEAD:main && exit 0
             echo "push attempt $i failed, retrying"
@@ -49,3 +51,101 @@ jobs:
           done
           echo "could not push after 3 attempts"
           exit 1
+
+      # ---- read the events file into step outputs -------------------------
+      - name: Read events
+        id: ev
+        run: |
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import json, os
+          try:
+              e = json.load(open("data/events.json"))
+          except Exception:
+              e = {}
+          print(f"email={'true' if e.get('email_worthy') else 'false'}")
+          print(f"pharmac={'true' if e.get('pharmac_change') else 'false'}")
+
+          lines = []
+          for m in e.get("moves", []):
+              arrow = "fell" if m["direction"] == "down" else "rose"
+              lines.append(f"{m['product']} at {m['retailer']} {arrow} "
+                           f"from ${m['was']:.2f} to ${m['now']:.2f} ({m['pct']:+.1f}%)")
+          for a in e.get("arrivals", []):
+              lines.append(f"New: {a['product']} at {a['retailer']}, ${a['price']:.2f}")
+          body = "\n".join(lines) or "No changes."
+          print("summary<<EOF"); print(body); print("EOF")
+
+          pc = e.get("pharmac_change") or {}
+          print("pharmac_detail<<EOF")
+          print(json.dumps(pc, indent=2))
+          print("EOF")
+          PY
+
+      # ---- automatic: price moves and new products ------------------------
+      - name: Send email
+        if: steps.ev.outputs.email == 'true' && env.MAILER_KEY != ''
+        env:
+          MAILER_KEY: ${{ secrets.MAILER_API_KEY }}
+          GROUP_ID: ${{ secrets.MAILER_GROUP_ID }}
+          SUMMARY: ${{ steps.ev.outputs.summary }}
+        run: |
+          python - <<'PY'
+          import os, json, urllib.request, datetime
+
+          summary = os.environ["SUMMARY"]
+          today = datetime.date.today().strftime("%-d %B %Y")
+          html = (
+            "<p>What changed on glp.nz:</p><ul>"
+            + "".join(f"<li>{line}</li>" for line in summary.splitlines() if line.strip())
+            + '</ul><p><a href="https://glp.nz/">See all current prices</a></p>'
+          )
+
+          # MailerLite campaign API. Swap this block if you use another provider;
+          # everything above is provider agnostic.
+          req = urllib.request.Request(
+              "https://connect.mailerlite.com/api/campaigns",
+              data=json.dumps({
+                  "name": f"Price change {today}",
+                  "type": "regular",
+                  "emails": [{
+                      "subject": f"GLP-1 price change, {today}",
+                      "from_name": "glp.nz",
+                      "content": html,
+                  }],
+                  "groups": [os.environ["GROUP_ID"]],
+              }).encode(),
+              headers={
+                  "Authorization": f"Bearer {os.environ['MAILER_KEY']}",
+                  "Content-Type": "application/json",
+                  "Accept": "application/json",
+              },
+              method="POST",
+          )
+          with urllib.request.urlopen(req, timeout=30) as r:
+              print("campaign created:", r.status)
+          PY
+
+      # ---- manual: Pharmac funding ----------------------------------------
+      - name: Open issue for Pharmac change
+        if: steps.ev.outputs.pharmac == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const detail = `${{ steps.ev.outputs.pharmac_detail }}`;
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: "Possible Pharmac funding change, confirm before sending",
+              body: [
+                "The daily check saw a change in whether these molecules appear in the",
+                "Pharmac Schedule, on two consecutive days.",
+                "",
+                "```json",
+                detail,
+                "```",
+                "",
+                "No email has gone out. Confirm against",
+                "https://www.pharmac.govt.nz/news-and-resources/news and the current",
+                "Schedule before announcing anything.",
+              ].join("\n"),
+            });
