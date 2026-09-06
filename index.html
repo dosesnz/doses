@@ -390,7 +390,7 @@ td.moved-up .was{color:var(--clay)}
     return;
   }
 
-  const all = raw
+  let all = raw
     .filter(r => r.price_nzd && !/^ERROR/.test(r.note || ""))
     .map(r => ({
       date: r.date.slice(0, 10), ts: r.date,
@@ -414,6 +414,12 @@ td.moved-up .was{color:var(--clay)}
     if (!latestMap[k] || r.ts > latestMap[k].ts) latestMap[k] = r;
   }
   const L = Object.values(latestMap);
+
+  // Earlier scraper versions labelled the same product differently, so the history
+  // holds rows for names that no longer exist. Keep only the series that are still
+  // being collected, otherwise the chart offers dead options that draw nothing.
+  const liveKeys = new Set(L.map(r => [r.retailer, r.drug, r.strength].join("|")));
+  all = all.filter(r => liveKeys.has([r.retailer, r.drug, r.strength].join("|")));
 
   // Previous price per retailer+drug+strength: the most recent earlier record that
   // differs from today's. A price that moved is the thing worth pointing at; a one
@@ -743,6 +749,17 @@ td.moved-up .was{color:var(--clay)}
   }
 
   // ---------- history ----------
+  // A chart of four identical days says nothing. Keep the whole section out of the
+  // way until at least one price somewhere has actually changed.
+  const HAS_MOVEMENT = (() => {
+    const series = {};
+    for (const r of all) {
+      const k = [r.retailer, r.drug, r.strength].join("|");
+      (series[k] = series[k] || new Set()).add(r.price);
+    }
+    return Object.values(series).some(set => set.size > 1);
+  })();
+
   const hd = $("#h-drug"), hs = $("#h-strength"), empty = $("#chart-empty");
   hd.innerHTML = DRUGS.map(d => '<option>' + d + '</option>').join("");
   let chart;
@@ -761,8 +778,11 @@ td.moved-up .was{color:var(--clay)}
     const palette = ["#1F5E56", "#A8443A", "#3D6E9E", "#8A6A2F", "#6B5A9E"];
     if (chart) chart.destroy();
     const holder = document.querySelector(".chart-holder");
-    if (dates.length < 2 || typeof Chart === "undefined") {
-      document.querySelector("#history").hidden = true; return;
+    if (!HAS_MOVEMENT || dates.length < 2 || typeof Chart === "undefined") {
+      document.querySelector("#history").hidden = true;
+      const nh0 = document.querySelector("#nav-history");
+      if (nh0) nh0.hidden = true;
+      return;
     }
     document.querySelector("#history").hidden = false;
     const nh = document.querySelector("#nav-history"); if (nh) nh.hidden = false;
@@ -785,7 +805,20 @@ td.moved-up .was{color:var(--clay)}
         animation: matchMedia("(prefers-reduced-motion: reduce)").matches ? false : undefined,
         interaction: { mode: "index", intersect: false },
         scales: {
-          y: { ticks: { callback: v => "$" + v, color: "#7C8A84", font: { family: "DM Sans", size: 12 } }, grid: { color: "#E5E7E2" }, border: { display: false } },
+          y: {
+            // Prices here differ by cents, and left alone the axis invents steps of
+            // a fraction of a cent and prints them at full floating point precision.
+            // Five dollars is the smallest gap worth drawing a gridline for.
+            ticks: {
+              stepSize: 5,
+              maxTicksLimit: 8,
+              callback: v => "$" + Number(v).toLocaleString("en-NZ",
+                { minimumFractionDigits: 0, maximumFractionDigits: 2 }),
+              color: "#7C8A84", font: { family: "DM Sans", size: 12 }
+            },
+            grace: "8%",
+            grid: { color: "#E5E7E2" }, border: { display: false }
+          },
           x: { ticks: { color: "#7C8A84", font: { family: "DM Sans", size: 12 } }, grid: { display: false } }
         },
         plugins: {
