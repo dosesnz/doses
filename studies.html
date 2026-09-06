@@ -11,8 +11,13 @@
 <meta property="og:description" content="What the trials found, what independent reviews say, and what happens when you stop.">
 <meta property="og:url" content="https://glp.nz/studies.html">
 <meta name="twitter:card" content="summary">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+/* DM Sans, self-hosted. Static weights: 400 body, 500 labels, 600 headings. */
+@font-face{font-family:"DM Sans";src:url("/fonts/dm-sans-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"DM Sans";src:url("/fonts/dm-sans-500.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"DM Sans";src:url("/fonts/dm-sans-600.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
+</style>
+<link rel="preload" href="/fonts/dm-sans-400.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 /* ---------- glp.nz design tokens ---------- */
 :root{
@@ -366,7 +371,7 @@ footer .shell{padding:56px var(--gutter) 72px}
   <div class="shell">
     <div class="fine">
       <p>Trial results are averages across a study population and say nothing about what any individual will experience. Entries marked as manufacturer funded were paid for by the company selling the medicine, which is normal for phase 3 registration trials and worth knowing when reading them.</p>
-      <p>glp.nz is not a substitute for a clinician and gives no medical advice. Data sheets and consumer medicine information are on <a href="https://www.medsafe.govt.nz">Medsafe</a>. <a href="index.html">Back to prices</a></p>
+      <p>glp.nz is not a substitute for a clinician and gives no medical advice. Data sheets and consumer medicine information are on <a href="https://www.medsafe.govt.nz">Medsafe</a>. Brand names are the trademarks of their respective owners. <a href="index.html">Back to prices</a></p>
     </div>
   </div>
 </footer>

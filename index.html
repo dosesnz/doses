@@ -11,9 +11,14 @@
 <meta property="og:description" content="What NZ pharmacies charge for GLP-1 medication at every strength, and where to buy it.">
 <meta property="og:url" content="https://glp.nz/">
 <meta name="twitter:card" content="summary">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+/* DM Sans, self-hosted. Static weights: 400 body, 500 labels, 600 headings. */
+@font-face{font-family:"DM Sans";src:url("/fonts/dm-sans-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"DM Sans";src:url("/fonts/dm-sans-500.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"DM Sans";src:url("/fonts/dm-sans-600.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
+</style>
+<link rel="preload" href="/fonts/dm-sans-400.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 /* ---------- glp.nz design tokens ---------- */
 :root{
@@ -76,10 +81,17 @@ a:hover{color:var(--teal-dark)}
 
 /* ---------- tables ---------- */
 .tablewrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;min-width:620px}
-th{font-size:.7rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--sage);background:var(--stone);text-align:right;padding:18px 20px;border-bottom:1px solid var(--line);white-space:nowrap}
+/* Fixed layout so every pharmacy column is the same width regardless of how long
+   its name is. Without it, "Chemist Warehouse" claims more room than "PillDrop". */
+table{width:100%;border-collapse:collapse;min-width:700px;table-layout:fixed}
+th:first-child,td:first-child{width:22%}
+/* One pharmacy means no comparison, so a full-width row leaves the price marooned.
+   Split it evenly instead. */
+table.single{min-width:0}
+table.single th:first-child,table.single td:first-child{width:50%}
+th{font-size:.7rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--sage);background:var(--stone);text-align:center;padding:18px 20px;border-bottom:1px solid var(--line);white-space:nowrap}
 th:first-child{text-align:left}
-td{padding:18px 20px;text-align:right;border-bottom:1px solid var(--line);font-size:1.06rem;color:var(--ink);white-space:nowrap}
+td{padding:18px 20px;text-align:center;border-bottom:1px solid var(--line);font-size:1.06rem;color:var(--ink);white-space:nowrap}
 td:first-child{text-align:left;font-size:1rem;color:var(--slate);font-weight:500}
 tr:last-child td{border-bottom:0}
 td.best{background:var(--teal-soft);color:var(--teal);font-weight:500}
@@ -163,6 +175,24 @@ td.moved-up .was{color:var(--clay)}
 @media(max-width:640px){.delivery .row{grid-template-columns:1fr;gap:6px}}
 
 [hidden]{display:none !important}
+.faq{border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq details:last-child{border-bottom:0}
+.faq summary{list-style:none;cursor:pointer;padding:20px 34px 20px 0;position:relative;
+  font-size:1.06rem;letter-spacing:-.012em;color:var(--ink)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";position:absolute;right:6px;top:50%;width:9px;height:9px;
+  border-right:1.5px solid var(--sage);border-bottom:1.5px solid var(--sage);
+  transform:translateY(-70%) rotate(45deg);transition:transform .18s}
+.faq details[open] summary::after{transform:translateY(-20%) rotate(-135deg)}
+.faq summary:hover{color:var(--teal)}
+.faq .answer{padding:0 0 22px;max-width:74ch;color:var(--slate)}
+.faq .answer p{margin:0 0 10px}
+.faq .answer p:last-child{margin:0}
+.faq .answer ul{margin:12px 0 0;padding:0;list-style:none}
+.faq .answer li{padding:9px 0;border-top:1px solid var(--line)}
+.faq .answer li strong{font-weight:500;color:var(--ink)}
+@media(prefers-reduced-motion:reduce){.faq summary::after{transition:none}}
 .signup{display:grid;grid-template-columns:1fr auto;gap:10px;max-width:520px;margin-top:20px}
 @media(max-width:520px){.signup{grid-template-columns:1fr}}
 .signup input[type=email]{width:100%;font:inherit;font-size:1rem;padding:12px 14px;border:1px solid var(--line);border-radius:var(--radius-control);background:var(--white);color:var(--ink)}
@@ -202,19 +232,6 @@ td.moved-up .was{color:var(--clay)}
 
 
 <div id="prices"></div>
-
-<div class="band-stone" id="delivery">
-  <section class="section shell">
-    <div class="section-head">
-      <div class="kicker">Delivery</div>
-      <h2>Getting it to you</h2>
-      <p>These are fridge lines. A cheaper pen with a handling fee, or a wait for the next dispatch day, may not be the cheaper option.</p>
-    </div>
-    <div class="card">
-      <div class="delivery" id="delivery-list"></div>
-    </div>
-  </section>
-</div>
 
 <div class="band-stone" id="cost">
   <section class="section shell">
@@ -258,6 +275,16 @@ td.moved-up .was{color:var(--clay)}
   </section>
 </div>
 
+<section class="section shell" id="faq" hidden>
+  <div class="section-head">
+    <div class="kicker">Questions</div>
+    <h2>Common questions</h2>
+  </div>
+  <div class="card">
+    <div class="faq" id="faq-list"></div>
+  </div>
+</section>
+
 <section class="section shell" id="history" hidden>
   <div class="section-head">
     <div class="kicker">History</div>
@@ -285,13 +312,15 @@ td.moved-up .was{color:var(--clay)}
       </ul>
     </div>
     <div class="card">
-      <form class="signup" id="alerts-form" method="post" target="_blank" rel="noopener">
+      <form class="signup" id="alerts-form" method="post">
         <label class="hp" for="company">Leave this empty</label>
         <input class="hp" type="text" id="company" name="company" tabindex="-1" autocomplete="off">
-        <input type="email" name="email" id="alerts-email" placeholder="you@example.co.nz" required autocomplete="email" aria-label="Email address">
-        <button type="submit">Sign up</button>
+        <input type="email" name="fields[email]" id="alerts-email" placeholder="you@example.co.nz" required autocomplete="email" aria-label="Email address">
+        <input type="hidden" name="ml-submit" value="1">
+        <input type="hidden" name="anticsrf" value="true">
+        <button type="submit" id="alerts-button">Sign up</button>
       </form>
-      <p class="signup-note">Unsubscribe from any email.</p>
+      <p class="signup-note" id="alerts-note">Unsubscribe from any email.</p>
     </div>
   </section>
 </div>
@@ -300,7 +329,7 @@ td.moved-up .was{color:var(--clay)}
   <div class="shell">
     <div class="fine">
       <p>glp.nz is an independent price tracker. Prices come from each retailer's public website and may differ from what you're charged in store, the retailer's site is the source of truth.</p>
-      <p>Nothing here is medical advice. Data sheets and consumer medicine information are on <a href="https://www.medsafe.govt.nz">Medsafe</a>. Prices are published as a <a href="data/prices.csv">CSV</a> you're welcome to reuse with attribution.</p>
+      <p>Nothing here is medical advice. Data sheets and consumer medicine information are on <a href="https://www.medsafe.govt.nz">Medsafe</a>. Brand names are the trademarks of their respective owners. Prices are published as a <a href="data/prices.csv">CSV</a> you're welcome to reuse with attribution.</p>
     </div>
   </div>
 </footer>
@@ -314,6 +343,11 @@ td.moved-up .was{color:var(--clay)}
   // signup section stays hidden until this is filled in, and no API key is
   // involved, so nothing sensitive lives in this file.
   const MAILING_LIST_ENDPOINT = "https://assets.mailerlite.com/jsonp/2615053/forms/197680669825959152/subscribe";
+
+  // Same-origin first. The repository copy is only a fallback for the case where
+  // the host has not picked up the latest commit yet.
+  const DATA_LOCAL  = "data/prices.csv";
+  const DATA_REMOTE = "https://raw.githubusercontent.com/dosesnz/doses/main/data/prices.csv";
 
   // Note for the send step, when it is built: the table marks any change, but an
   // email should only go out when a price moves by 1.5% or more. That is about
@@ -337,11 +371,19 @@ td.moved-up .was{color:var(--clay)}
     return rows.filter(r => r.length === head.length).map(r => Object.fromEntries(head.map((h, i) => [h, r[i]])));
   }
 
+  async function loadPrices() {
+    for (const url of [DATA_LOCAL, DATA_REMOTE]) {
+      try {
+        const res = await fetch(url, { cache: "no-store" });
+        if (res.ok) return parseCSV(await res.text());
+      } catch (e) { /* try the next source */ }
+    }
+    throw new Error("no price data");
+  }
+
   let raw;
   try {
-    const res = await fetch("data/prices.csv", { cache: "no-store" });
-    if (!res.ok) throw new Error(res.status);
-    raw = parseCSV(await res.text());
+    raw = await loadPrices();
   } catch (e) {
     $("#stamp").textContent = "Prices unavailable";
     $("#prices").innerHTML = '<section class="section shell"><div class="notice">Couldn\'t load the price data. If this is a fresh deploy, run the scraper once so data/prices.csv exists.</div></section>';
@@ -405,15 +447,21 @@ td.moved-up .was{color:var(--clay)}
     new Date(newest).toLocaleDateString("en-NZ", { day: "numeric", month: "long", year: "numeric" });
   $("#stamp").innerHTML = '<time datetime="' + newest + '">' + stampText + '</time>';
 
-  const RETAILERS = [...new Set(L.map(r => r.retailer))].sort();
+  // Column order is set here rather than alphabetically, so the longest name sits
+  // at the edge and the table reads evenly. Anything not listed goes on the end.
+  const RETAILER_ORDER = ["Bargain Chemist", "PillDrop", "Chemist Warehouse", "Zoom Pharmacy"];
+  const RETAILERS = [...new Set(L.map(r => r.retailer))].sort((a, b) => {
+    const ia = RETAILER_ORDER.indexOf(a), ib = RETAILER_ORDER.indexOf(b);
+    return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib) || a.localeCompare(b);
+  });
   const num = s => { const m = /(\d+(\.\d+)?)/.exec(s); return m ? parseFloat(m[1]) : 0; };
   const ORDER = ["Wegovy", "Mounjaro", "Saxenda"];
   // Collected in the CSV but not shown: not GLP-1s, so they would distort a comparison.
   const OTHER = ["Contrave", "Duromine", "Xenical"];
   const META = {
-    Wegovy:   { sub: "semaglutide", head: "Once-weekly, four doses a pen", note: "", needles: 0, maint: "2.4mg", titration: ["0.25mg","0.5mg","1.0mg","1.7mg"] },
-    Mounjaro: { sub: "tirzepatide", head: "KwikPen, four doses a pen",     note: "", needles: 0, maint: "5mg", titration: ["2.5mg","5mg","7.5mg","10mg"] },
-    Saxenda:  { sub: "liraglutide", head: "Daily, sold by the pack",       note: "Check the pack size before comparing.", needles: 0 }
+    Wegovy:   { sub: "semaglutide", head: "Injected once a week. One pen holds four doses, so a pen covers about a month", note: "", needles: 0, maint: "2.4mg", titration: ["0.25mg","0.5mg","1.0mg","1.7mg"] },
+    Mounjaro: { sub: "tirzepatide", head: "Injected once a week. One KwikPen holds four doses, so a pen covers about a month",     note: "", needles: 0, maint: "5mg", titration: ["2.5mg","5mg","7.5mg","10mg"] },
+    Saxenda:  { sub: "liraglutide", head: "Injected daily. Sold by volume, and 15ml is about five 3ml pens",       note: "Check the volume before comparing.", needles: 0 }
   };
 
   const isOther = d => OTHER.some(o => d.toLowerCase().startsWith(o.toLowerCase()));
@@ -500,7 +548,7 @@ td.moved-up .was{color:var(--clay)}
           (m.sub ? '<div class="molecule">' + m.sub + '</div>' : '') +
           '<p class="desc">' + m.head + (m.note ? '. ' + m.note : '') + '</p>' +
         '</div>' +
-        '<div class="card card-flush"><div class="tablewrap"><table>' +
+        '<div class="card card-flush"><div class="tablewrap"><table' + (cols.length === 1 ? ' class="single"' : '') + '>' +
           '<thead><tr><th>' + (isPack ? "Pack" : "Strength") + '</th>' +
             cols.map(c => '<th>' + c + '</th>').join("") + '</tr></thead>' +
           '<tbody>' + body + '</tbody>' +
@@ -511,8 +559,35 @@ td.moved-up .was{color:var(--clay)}
   // ---------- email signup ----------
   if (MAILING_LIST_ENDPOINT) {
     const form = $("#alerts-form");
+    const note = $("#alerts-note");
+    const button = $("#alerts-button");
     form.action = MAILING_LIST_ENDPOINT;
     $("#alerts").hidden = false;
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      // Honeypot: only a bot fills this in.
+      if (form.querySelector("#company").value) return;
+      const email = $("#alerts-email").value.trim();
+      if (!email) return;
+
+      button.disabled = true;
+      button.textContent = "Signing up";
+      try {
+        // no-cors means the response cannot be read, which is fine: the
+        // confirmation email is what tells the person it worked.
+        await fetch(MAILING_LIST_ENDPOINT, {
+          method: "POST",
+          mode: "no-cors",
+          body: new FormData(form),
+        });
+      } catch (err) {
+        // Network failures land here; the message below still applies, since a
+        // retry costs nothing and a duplicate signup is harmless.
+      }
+      form.hidden = true;
+      note.innerHTML = "<strong>Check your email.</strong> Click the link in it to confirm.";
+    });
   }
 
   // ---------- delivery notes ----------
@@ -536,21 +611,6 @@ td.moved-up .was{color:var(--clay)}
       text: "A cold-chain handling charge applies on delivery, on top of the listed price."
     }
   };
-
-  const dHost = document.querySelector("#delivery-list");
-  if (dHost) {
-    const shown = RETAILERS.filter(r => DELIVERY[r]);
-    if (shown.length) {
-      dHost.innerHTML = shown.map(r => {
-        const d = DELIVERY[r];
-        return '<div class="row"><div class="who">' + r + '</div>' +
-               '<div class="what">' + (d.flag ? '<span class="flag">' + d.flag + '</span>' : '') +
-               d.text + '</div></div>';
-      }).join("");
-    } else {
-      document.querySelector("#delivery").remove();
-    }
-  }
 
   // ---------- calculator ----------
   const cd = $("#c-drug"), cs = $("#c-strength"), crx = $("#c-rx"), crxp = $("#c-rx-preset"), cn = $("#c-needles");
@@ -605,6 +665,83 @@ td.moved-up .was{color:var(--clay)}
   cn.addEventListener("input", calc);
   if (penDrugs.length) { fillStrengths(); calc(); }
 
+  // ---------- questions ----------
+  // Answers are derived from the current prices, so they cannot contradict the
+  // tables above. An entry with no answer in the data is simply not shown.
+  const faqs = [];
+
+  // Strengths that share a price with the step below them. Useful when budgeting
+  // for a dose increase; it is not a suggestion to take a higher dose.
+  for (const d of DRUGS) {
+    const ss = strengthsFor(d).filter(x => /^[\d.]+mg$/.test(x));
+    const priceOf = x => {
+      const c = cheapest(d, x);
+      return c ? c.price : null;
+    };
+    const pairs = [];
+    for (let i = 1; i < ss.length; i++) {
+      const a = priceOf(ss[i - 1]), b = priceOf(ss[i]);
+      if (a !== null && b !== null && a === b) pairs.push(ss[i - 1] + " and " + ss[i]);
+    }
+    if (pairs.length) {
+      faqs.push({
+        q: "Does a higher dose of " + d + " cost more?",
+        a: "Not always. The same price currently covers " +
+           (pairs.length === 1 ? pairs[0] : pairs.slice(0, -1).join(", ") + " and " + pairs.slice(-1)) +
+           ". Moving between those strengths does not change what you pay. Which dose you take is a decision for your prescriber, based on how you tolerate it."
+      });
+    }
+  }
+
+  faqs.push({
+    q: "How long does one pen last?",
+    a: "Wegovy and Mounjaro are injected once a week and each pen holds four doses, so one pen covers about a month at any strength. Saxenda is injected daily and sold by volume rather than by dose: each 3ml pen holds 18mg, which is six days at the 3mg maintenance dose, so 15ml is roughly a month. Lower starting doses stretch further. An opened pen is discarded 30 days after first use whatever is left in it."
+  });
+
+  faqs.push({
+    q: "Are these medicines funded in New Zealand?",
+    a: "No. Wegovy, Mounjaro and Saxenda are approved for weight management but are not funded by Pharmac, so the full price is paid privately. Dulaglutide and liraglutide are funded for type 2 diabetes under Special Authority."
+  });
+
+  // Delivery conditions differ enough to change which pharmacy is cheapest, so
+  // they belong with the price questions rather than in a section of their own.
+  const shipping = RETAILERS.filter(r => DELIVERY[r]);
+  if (shipping.length) {
+    faqs.push({
+      q: "How is it delivered?",
+      a: "These are fridge lines, so a cheaper pen with a handling fee or a wait for the next dispatch day may not be the cheaper option.",
+      list: shipping.map(r => "<strong>" + r + "</strong> " + DELIVERY[r].text),
+      // Plain version for the structured data, which cannot contain markup.
+      plain: "These are fridge lines, so a cheaper pen with a handling fee or a wait for the next dispatch day may not be the cheaper option. " +
+             shipping.map(r => r + ": " + DELIVERY[r].text).join(" ")
+    });
+  }
+
+  faqs.push({
+    q: "Why do prices barely differ between pharmacies?",
+    a: "The manufacturers set a recommended price for each strength and most pharmacies price close to it. Gaps of a few dollars are common; larger ones are not."
+  });
+
+  if (faqs.length) {
+    document.querySelector("#faq-list").innerHTML = faqs.map(f =>
+      '<details><summary>' + f.q + '</summary><div class="answer"><p>' + f.a + '</p>' +
+      (f.list ? '<ul>' + f.list.map(li => '<li>' + li + '</li>').join("") + '</ul>' : '') +
+      '</div></details>').join("");
+    document.querySelector("#faq").hidden = false;
+
+    const tag = document.createElement("script");
+    tag.type = "application/ld+json";
+    tag.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(f => ({
+        "@type": "Question", "name": f.q,
+        "acceptedAnswer": { "@type": "Answer", "text": f.plain || f.a }
+      }))
+    });
+    document.head.appendChild(tag);
+  }
+
   // ---------- history ----------
   const hd = $("#h-drug"), hs = $("#h-strength"), empty = $("#chart-empty");
   hd.innerHTML = DRUGS.map(d => '<option>' + d + '</option>').join("");
@@ -624,7 +761,9 @@ td.moved-up .was{color:var(--clay)}
     const palette = ["#1F5E56", "#A8443A", "#3D6E9E", "#8A6A2F", "#6B5A9E"];
     if (chart) chart.destroy();
     const holder = document.querySelector(".chart-holder");
-    if (dates.length < 2) { document.querySelector("#history").hidden = true; return; }
+    if (dates.length < 2 || typeof Chart === "undefined") {
+      document.querySelector("#history").hidden = true; return;
+    }
     document.querySelector("#history").hidden = false;
     const nh = document.querySelector("#nav-history"); if (nh) nh.hidden = false;
     holder.hidden = false; empty.hidden = true;
