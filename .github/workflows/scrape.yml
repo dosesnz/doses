@@ -145,7 +145,4 @@ jobs:
                 "```",
                 "",
                 "No email has gone out. Confirm against",
-                "https://www.pharmac.govt.nz/news-and-resources/news and the current",
-                "Schedule before announcing anything.",
-              ].join("\n"),
-            });
+                "https://www.pharmac.govt.nz/news-and-resour
