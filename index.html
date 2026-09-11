@@ -19,6 +19,8 @@
 @font-face{font-family:"DM Sans";src:url("/fonts/dm-sans-600.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
 </style>
 <link rel="preload" href="/fonts/dm-sans-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/dm-sans-500.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/dm-sans-600.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 /* ---------- glp.nz design tokens ---------- */
 :root{
@@ -175,6 +177,12 @@ td.moved-up .was{color:var(--clay)}
 @media(max-width:640px){.delivery .row{grid-template-columns:1fr;gap:6px}}
 
 [hidden]{display:none !important}
+/* The tables, questions and signup are all built from the price data. Painting
+   them as they arrive shoves the rest of the page down each time, which is what
+   layout shift measures. Hold them until everything is ready and paint once. */
+#app{visibility:hidden}
+#app.ready{visibility:visible}
+.booting{min-height:60vh}
 .faq{border-top:1px solid var(--line)}
 .faq details{border-bottom:1px solid var(--line)}
 .faq details:last-child{border-bottom:0}
@@ -231,7 +239,7 @@ td.moved-up .was{color:var(--clay)}
 
 
 
-<div id="prices"></div>
+<div id="app" class="booting"><div id="prices"></div>
 
 <div class="band-stone" id="cost">
   <section class="section shell">
@@ -325,6 +333,8 @@ td.moved-up .was{color:var(--clay)}
   </section>
 </div>
 
+</div>
+
 <footer>
   <div class="shell">
     <div class="fine">
@@ -386,6 +396,8 @@ td.moved-up .was{color:var(--clay)}
     raw = await loadPrices();
   } catch (e) {
     $("#stamp").textContent = "Prices unavailable";
+    const appEl = document.querySelector("#app");
+    if (appEl) { appEl.classList.remove("booting"); appEl.classList.add("ready"); }
     $("#prices").innerHTML = '<section class="section shell"><div class="notice">Couldn\'t load the price data. If this is a fresh deploy, run the scraper once so data/prices.csv exists.</div></section>';
     return;
   }
@@ -747,6 +759,11 @@ td.moved-up .was{color:var(--clay)}
     });
     document.head.appendChild(tag);
   }
+
+  // Everything above is now in the DOM at its final size, so revealing here costs
+  // no layout shift.
+  const app = document.querySelector("#app");
+  if (app) { app.classList.remove("booting"); app.classList.add("ready"); }
 
   // ---------- history ----------
   // A chart of four identical days says nothing. Keep the whole section out of the
